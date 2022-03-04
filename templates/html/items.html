@@ -60,13 +60,11 @@
   <h1 style="text-align: center; margin-top: 50px;">JACKETS</h1>
   <div class="kurt">
     {% for item in items %}
-      {% if  item.category == 'Men'%}
-        <div class="tsort">
-          <img src="{% static 'img/' %}{{item.image}}">
-          <h4 style="color: #330867;">{{item.name}}</h4>
-          <h5 style="color: #330867;"> {{item.price}} KZT</h5>
-        </div>
-      {% endif %}
+      <div class="tsort">
+        <img src="{% static 'img/' %}{{item.image}}">
+        <h4 style="color: #330867;">{{item.name}}</h4>
+        <h5 style="color: #330867;"> {{item.price}} KZT</h5>
+      </div>
     {% endfor %}
   </div>
 
