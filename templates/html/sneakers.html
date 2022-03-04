@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <script src="../script/vue.js"></script>
+  <link rel="stylesheet" href="../style/sneakers.css">
+  <title>SNEAKERS</title>
+</head>
+
+<body>
+
+  <body>
+    <div id="header_container">
+      <div id="header" onmouseover="changeHeaderColor('rgb(27, 27, 27)')" onmouseout="changeHeaderColor('transparent')">
+        <br>
+        <div id="brand_name">
+          <h2>l'éncore</h2>
+          <div style="text-align: right;">
+            <button class="btn btn-outline-light button_main" onclick="location.href='cart.html';">
+              <i class="fas fa-shopping-basket"></i>
+            </button>
+            <button class="btn btn-outline-light button_main" onclick="location.href='registration.html';">
+              <i class="fas fa-sign-in-alt"></i>
+            </button>
+            <button class="btn btn-outline-light button_main" onclick="location.href='contacts.html';">
+              <i class="fas fa-info-circle"></i>
+            </button>
+            <button class="btn btn-outline-light button_main" onclick="location.href='tables.html';">
+              <i class="fas fa-tshirt"></i>
+            </button>
+          </div>
+        </div>
+
+        <div id="header_buttons">
+          <input type="button" value="Main" class="btn btn-outline-light button_main"
+            onclick="location.href='main_page.html';">
+          <input type="button" value="Men" class="btn btn-outline-light button_main"
+            onclick="location.href='man.html';">
+          <input type="button" value="Women" class="btn btn-outline-light button_main"
+            onclick="location.href='woman_page.html';">
+          <input type="button" value="Kids" class="btn btn-outline-light button_main"
+            onclick="location.href='kids_page.html';">
+          <input type="button" value="Sneakers" class="btn btn-outline-light button_main"
+            onclick="location.href='sneakers.html';">
+          <input type="button" value="Accessories" class="btn btn-outline-light button_main"
+            onclick="location.href='acessories_page.html';">
+        </div>
+      </div>
+    </div>
+
+    <h1 style="text-align: center; margin-top: 50px;">WOMEN</h1>
+    <div class="kurt">
+      <div class="tsort">
+        <img onmouseout="change_sneakers_img0()" onmousemove="change_sneakers_rev0()" src="../img/sneakers/Man1.jpg"
+          alt="">
+        <h4 style="color: #330867;">SNEAKERS POLO</h4>
+        <h5 style="color: #330867;"> 128.000 KZT</h5>
+      </div>
+      <div class="tsort">
+        <img onmouseout="change_sneakers_img1()" onmousemove="change_sneakers_rev1()" src="../img/sneakers/Man2.jpg"
+          alt="">
+        <h4 style="color: #330867;">SNEAKERS ALPHA</h4>
+        <h5 style="color: #330867;"> 187.000 KZT</h5>
+      </div>
+      <div class="tsort">
+        <img onmouseout="change_sneakers_img2()" onmousemove="change_sneakers_rev2()" src="../img/sneakers/Man3.jpg"
+          alt="">
+        <h4 style="color: #330867;">SNEAKERS OUTLINE</h4>
+        <h5 style="color: #330867;"> 164.000 KZT</h5>
+      </div>
+      <div class="tsort">
+        <img onmouseout="change_sneakers_img3()" onmousemove="change_sneakers_rev3()" src="../img/sneakers/Woman4.jpg"
+          alt="">
+        <h4 style="color: #330867;">SNEAKERS ELEGANT</h4>
+        <h5 style="color: #330867;"> 199.000 KZT</h5>
+      </div>
+      <div class="tsort">
+        <img onmouseout="change_sneakers_img4()" onmousemove="change_sneakers_rev4()" src="../img/sneakers/Woman5.jpg"
+          alt="">
+        <h4 style="color: #330867;">SNEAKERS POWERMATHIC</h4>
+        <h5 style="color: #330867;">155.000 KZT</h5>
+      </div>
+      <div class="tsort">
+        <img onmouseout="change_sneakers_img5()" onmousemove="change_sneakers_rev5()" src="../img/sneakers/Woman6.jpg"
+          alt="">
+        <h4 style="color: #330867;">SNEAKERS FALL</h4>
+        <h5 style="color: #330867;">115.000 KZT</h5>
+      </div>
+      <div class="tsort">
+        <img onmouseout="change_sneakers_img6()" onmousemove="change_sneakers_rev6()" src="../img/sneakers/Man7.jpg"
+          alt="">
+        <h4 style="color: #330867;">SNEAKERS RELAX</h4>
+        <h5 style="color: #330867;">265.000 KZT</h5>
+      </div>
+      <div class="tsort">
+        <img onmouseout="change_sneakers_img7()" onmousemove="change_sneakers_rev7()" src="../img/sneakers/Man8.jpg"
+          alt="">
+        <h4 style="color: #330867;">SNEAKERS RELAX PRO</h4>
+        <h5 style="color: #330867;">290.000 KZT</h5>
+      </div>
+    </div>
+
+    <div id="bottom_part">
+      <vue-footer-contacts></vue-footer-contacts>
+      <vue-footer-adress></vue-footer-adress>
+      <vue-footer-social></vue-footer-social>
+      <vue-footer-news></vue-footer-news>
+    </div>
+    <script src="../script/Footer.js"></script>
+    <script type="text/javascript" src="../script/sneakers_script.js"></script>
+
+
+  </body>
+
+</html>

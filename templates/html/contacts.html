@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100&display=swap" rel="stylesheet">
+  <link href="http://fonts.cdnfonts.com/css/didot" rel="stylesheet">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <script src="../script/vue.js"></script>
+  <link rel="stylesheet" href="../style/contacts_style.css">
+  <title>Contacts</title>
+</head>
+
+<body>
+  <div id="header_container">
+    <div id="header" onmouseover="changeHeaderColor('rgb(27, 27, 27)')" onmouseout="changeHeaderColor('transparent')">
+      <br>
+      <div id="brand_name">
+        <h2>l'éncore</h2>
+        <div style="text-align: right;">
+          <button class="btn btn-outline-light button_main" onclick="location.href='cart.html';">
+            <i class="fas fa-shopping-basket"></i>
+          </button>
+          <button class="btn btn-outline-light button_main" onclick="location.href='registration.html';">
+            <i class="fas fa-sign-in-alt"></i>
+          </button>
+          <button class="btn btn-outline-light button_main" onclick="location.href='contacts.html';">
+            <i class="fas fa-info-circle"></i>
+          </button>
+          <button class="btn btn-outline-light button_main" onclick="location.href='tables.html';">
+            <i class="fas fa-tshirt"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="header_buttons">
+        <input type="button" value="Main" class="btn btn-outline-light button_main"
+          onclick="location.href='main_page.html';">
+        <input type="button" value="Men" class="btn btn-outline-light button_main" onclick="location.href='man.html';">
+        <input type="button" value="Women" class="btn btn-outline-light button_main"
+          onclick="location.href='woman_page.html';">
+        <input type="button" value="Kids" class="btn btn-outline-light button_main"
+          onclick="location.href='kids_page.html';">
+        <input type="button" value="Sneakers" class="btn btn-outline-light button_main"
+          onclick="location.href='sneakers.html';">
+        <input type="button" value="Accessories" class="btn btn-outline-light button_main"
+          onclick="location.href='acessories_page.html';">
+      </div>
+    </div>
+  </div>
+
+  <h1 style="text-align: center; margin-top: 50px;margin-bottom: 50px;">Contacts</h1>
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col-sm">
+        <img src="../img/contacts/adam_8.jpg" alt="">
+      </div>
+      <div class="col-sm">
+        <h4>Name: Billy Herrington</h4>
+        <h4>Position: Head of the first department</h4>
+        <h5>Responsible person for the allocation of resources and the budget of the company, as well as responsible for
+          the redistribution</h5>
+        <p>Email: Herrington@gmail.com <br> Phone: + 7 (777) 111-22-33</p>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm">
+        <img src="../img/contacts/adam_13.jpg" alt="">
+      </div>
+      <div class="col-sm">
+        <h4>Name: Emma Stone</h4>
+        <h4>Position: Deputy Head</h4>
+        <h5>The person responsible for receiving the guests of his boss. Engaged in sorting databases.</h5>
+        <p>Email: Stone@gmail.com <br> Phone: + 7 (777) 111-22-34</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm">
+        <img src="../img/contacts/adam_14.jpg" alt="">
+      </div>
+      <div class="col-sm">
+        <h4>Name: Jack Cardiff</h4>
+        <h4>Position: Web Developer</h4>
+        <h5>The person who developed this beautiful website that you are now seeing.</h5>
+        <p>Email: Cardiff@gmail.com <br> Phone: + 7 (777) 111-22-35</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm">
+        <img src="../img/contacts/adam_9.jpg" alt="">
+      </div>
+      <div class="col-sm">
+        <h4>Name: Christina Bezos</h4>
+        <h4>Position: Marketer and Consultantt</h4>
+        <h5>Increasing the number of sales and serving people of particular importance</h5>
+        <p>Email: Christina@gmail.com <br> Phone: + 7 (777) 111-22-36</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm">
+        <img src="../img/contacts/adam_15.jpg" alt="">
+      </div>
+      <div class="col-sm">
+        <h4>Name: Gordon Ramzi</h4>
+        <h4>Position: Administrator of the first store</h4>
+        <h5>Responsible for the staff and the work of the most important department for the company</h5>
+        <p>Email: Ramzi@gmail.com <br> Phone: + 7 (777) 111-22-37</p>
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+
+  <div id="bottom_part">
+    <vue-footer-contacts></vue-footer-contacts>
+    <vue-footer-adress></vue-footer-adress>
+    <vue-footer-social></vue-footer-social>
+    <vue-footer-news></vue-footer-news>
+  </div>
+  <script src="../script/Footer.js"></script>
+  <script type="text/javascript" src="../script/contacts_script.js"></script>
+</body>
+
+</html>
