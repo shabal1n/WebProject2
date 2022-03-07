@@ -2,11 +2,12 @@
 {% load static %}
 {% block title %}l'encore {{ request.path|slice:"1:" }}{% endblock %}
 {% block content %}
+    <link rel="stylesheet" href="{% static 'style/items_style.css' %}">
     <h1 style="text-align: center; margin-top: 50px;">{{ request.path|slice:"1:"|upper }}</h1>
     <div class="kurt">
         {% for item in items %}
             <div class="tsort">
-                <img src="{% static 'img/' %}{{ item.image }}">
+                <img onload="change_img()" src="{% static 'img/' %}{{ item.image }}">
                 <h4 style="color: #330867;">{{ item.name }}</h4>
                 <h5 style="color: #330867;"> {{ item.price }} KZT</h5>
             </div>

@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Items(models.Model):
     name = models.CharField(max_length=30, blank=True, null=True)
     category = models.CharField(max_length=30, blank=True, null=True)
@@ -7,4 +8,4 @@ class Items(models.Model):
     image = models.CharField(max_length=150, blank=True, null=True)
 
     def __str__(self):
-        return (self.name + self.category)
+        return self.name + " " + self.category
