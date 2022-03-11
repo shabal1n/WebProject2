@@ -1,0 +1,53 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block title %}l'encore {{ request.path|slice:"1:" }}{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'style/items_style.css' %}">
+    <link rel="stylesheet" href="{% static 'style/product.css' %}">
+    <section class="section product-detail">
+        <div class="details container">
+            <div class="left image-container">
+                <div class="main">
+                    <img src="{% static 'img/ex.jpeg' %}" id="zoom" alt=""/>
+                </div>
+            </div>
+            <div class="right">
+                <span>Product type</span>
+                <h1>NAME OF THE PRODUCT</h1>
+                <div class="price">$0.00</div>
+                <form>
+                    <div>
+                        <select>
+                            <option value="Select Size" selected disabled>
+                                Select Size
+                            </option>
+                            <option value="1">SIZE</option>
+                            <option value="2">SIZE</option>
+                            <option value="3">SIZE</option>
+                            <option value="4">SIZE</option>
+                        </select>
+                        <span><i class="bx bx-chevron-down"></i></span>
+                    </div>
+                </form>
+                <form class="form">
+                    <a href="./cart.html" class="addCart">Add To Cart</a>
+                </form>
+                <h3>Product Detail</h3>
+                <p>
+                    something is written down
+                </p>
+                <p>it can be materials or origin of the product</p>
+                <p>bla bla</p>
+            </div>
+        </div>
+    </section>
+    <script src="{% static 'script/zoomsl.min.js' %}"></script>
+    <script>
+        $(function () {
+            console.log("hello");
+            $("#zoom").imagezoomsl({
+                zoomrange: [1, 1],
+            });
+        });
+    </script>
+{% endblock %}

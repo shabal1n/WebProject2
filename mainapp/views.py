@@ -29,3 +29,11 @@ def accessories(request):
 def sneakers(request):
     items = Items.objects.filter(category='Sneakers')
     return render(request, 'items.html', {'items': items})
+
+
+def product(request):
+    return render(request, 'product.html')
+
+
+def registration(request):
+    return render(request, 'registration.html')
