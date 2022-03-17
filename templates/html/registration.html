@@ -1,68 +1,35 @@
+{% extends 'authorization_template.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    <link rel="stylesheet" href="{% static 'style/registration.css' %}">
-    <link href="http://fonts.cdnfonts.com/css/didot" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100&display=swap" rel="stylesheet">
-</head>
+{% block content %}
+    <h5>Registration</h5>
 
-<body style="background-image: url({% static 'img/main/temp.jpeg' %})">
-    <div class="box-form">
-        <div class="left">
-            <div class="overlay">
-                <h1>l'éncore.</h1>
-                <span>
-                    <p>Register with social media</p>
-                    <a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a>
-                    <a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-                </span>
+    {% for message in messages %}
+        <h2 style="color: red">{{ message }}</h2>
+    {% endfor %}
+
+    <p>Creating your account</p>
+    <p> It takes less than three minutes</p>
+    <form class="inputs" method="POST" action="registration">
+        {% csrf_token %}
+        <input type="text" placeholder="Username" name="username">
+        <br>
+        <input type="email" placeholder="E-mail" name="email">
+        <br>
+        <input type="password" placeholder="Password" name="password1">
+        <br>
+        <input type="password" placeholder="Repeat password" name="password2">
+
+        <br><br>
+
+        <div class="remember-me--forget-password">
+            <div style="width: 100%">
+                <input type="checkbox" name="item"/>
+                <span>I'm not a robot</span>
             </div>
         </div>
 
-
-        <div class="right">
-            <span style="margin-left: 95%;" onclick="location.href='http://127.0.0.1:8000';">
-                <i class="fas fa-times"></i>
-            </span>
-            <h5>Registration</h5>
-            <p>Creating your account</p>
-            <p> It takes less than three minutes</p>
-            <div class="inputs">
-                <input type="text" placeholder="User name">
-                <br>
-                <input type="text" placeholder="Write your e-mail">
-                <br>
-                <input type="password" placeholder="Password">
-                <br>
-                <input type="password" placeholder="Repeat password">
-            </div>
-
-            <br><br>
-
-            <div class="remember-me--forget-password">
-                <script>
-                    function myFunction() {
-                        document.getElementById("demo").style.color = "red";
-                    }
-                </script>
-                <div style="display: right; width: 100%">
-                    <input type="checkbox" name="item" />
-                    <span>I'm not a robot</span>
-                </div>
-            </div>
-
-            <br>
-            <button>Register</button>
-        </div>
-
-    </div>
-
-</body>
-
-</html>
+        <br>
+        <input type="submit" placeholder="Register">
+    </form>
+{% endblock %}
