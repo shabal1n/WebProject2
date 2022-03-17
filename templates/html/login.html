@@ -2,23 +2,30 @@
 {% load static %}
 {% block content %}
     <h5>Login</h5>
-    <p>Don't have an account? <a href="http://127.0.0.1:8000/registration">Creat Your Account</a> it takes less than a minute</p>
-    <div class="inputs">
-        <input type="text" placeholder="User name">
+
+    {% for message in messages %}
+        <h3 style="color: red">{{ message }}</h3>
+    {% endfor %}
+
+    <p>Don't have an account? <a href="http://127.0.0.1:8000/registration">Creat Your Account</a> it takes less than a
+        minute</p>
+    <form class="inputs" action="login" method="POST">
+        {% csrf_token %}
+        <input type="text" placeholder="Username" name="username">
         <br>
-        <input type="password" placeholder="Password">
-    </div>
+        <input type="password" placeholder="Password" name="password">
 
-    <br><br>
+        <br><br>
 
-    <div class="remember-me--forget-password">
-        <label>
-            <input type="checkbox" name="item"/>
-            <span>Remember me</span>
-        </label>
-        <p>Forgot password?</p>
-    </div>
+        <div class="remember-me--forget-password">
+            <label>
+                <input type="checkbox" name="item"/>
+                <span>Remember me</span>
+            </label>
+            <p>Forgot password?</p>
+        </div>
 
-    <br>
-    <button>Login</button>
+        <br>
+        <button>Login</button>
+    </form>
 {% endblock %}

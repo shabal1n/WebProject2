@@ -22,15 +22,35 @@
         <br>
         <div id="brand_name">
             <h2>l'éncore</h2>
-            <div style="text-align: right;">
-                <button class="btn btn-outline-light button_main" onclick="location.href='cart.html';">
-                    <i class="fas fa-shopping-basket"></i>
-                </button>
-                <button class="btn btn-outline-light button_main" onclick="location.href='http://127.0.0.1:8000/registration';">
-                    <i class="fas fa-sign-in-alt"></i>
-                </button>
-                <button class="btn btn-outline-light button_main" onclick="location.href='contacts.html';">
-                    <i class="fas fa-info-circle"></i>
+            <div style="text-align: right; margin-right: 7%" id="user_buttons">
+                {% if user.is_authenticated %}
+                    <style>
+                        #user_buttons {
+                            text-align: center;
+                            width: fit-content;
+                            margin-left: auto;
+                            margin-right: 7%;
+                        }
+                    </style>
+                    <h6 style="font-family: Futura, 'Trebuchet MS', Arial, sans-serif;">
+                        Welcome, {{ user.username }}!</h6>
+
+                    <button class="btn btn-outline-light button_main" title="Log out"
+                            onclick="location.href='http://127.0.0.1:8000/logout';">
+                        <i class="fas fa-sign-out-alt" title="Log out"></i>
+                    </button>
+
+                {% else %}
+
+                    <button class="btn btn-outline-light button_main" title="Log in"
+                            onclick="location.href='http://127.0.0.1:8000/login';">
+                        <i class="fas fa-sign-in-alt" title="Log in"></i>
+                    </button>
+
+                {% endif %}
+
+                <button class="btn btn-outline-light button_main" title="Cart" onclick="location.href='cart.html';">
+                    <i class="fas fa-shopping-basket" title="Cart"></i>
                 </button>
             </div>
         </div>

@@ -13,11 +13,18 @@ body {
     object-fit: cover;
 }
 
+#user_buttons {
+    text-align: center;
+    font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+    width: fit-content;
+    margin-left: auto;
+}
+
 #header {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.692), transparent 50%);
     height: fit-content;
-    text-align: center; 
-    padding-bottom: 1%;  
+    text-align: center;
+    padding-bottom: 1%;
     position: fixed;
     z-index: 9;
     width: 100%;
@@ -36,8 +43,8 @@ body {
 
 .button_main {
     height: fit-content;
-    color: rgb(229,223,218);
-    border: 0px ;
+    color: rgb(229, 223, 218);
+    border: 0px;
     margin-inline: 1%;
     font-size: large;
     font-weight: 500;
@@ -50,15 +57,17 @@ body {
     border-radius: 2px;
     margin-bottom: 3%;
 }
+
 .tsort h4 {
     font-size: 1.8vw;
 }
+
 .tsort h5 {
     font-size: 1.8vw;
 }
 
 .tsort {
-    text-align:center;
+    text-align: center;
     margin-left: 5%;
     margin-right: 5%;
     margin-block: 3%;
@@ -66,6 +75,7 @@ body {
     width: 20%;
     text-size-adjust: none;
 }
+
 .kurt {
     margin-top: 4%;
     margin-bottom: 5%;
@@ -78,16 +88,16 @@ body {
 #bottom_part {
     background-color: rgb(27, 27, 27);
     height: fit-content;
-    color: rgb(229,223,218);
+    color: rgb(229, 223, 218);
     font-family: 'Lato', sans-serif;
     display: flex;
     flex-wrap: wrap;
 }
 
 .bottom_container {
-    margin-top: 3%; 
-    margin-bottom: 3%; 
-    margin-inline: 5%; 
-    justify-content: left; 
+    margin-top: 3%;
+    margin-bottom: 3%;
+    margin-inline: 5%;
+    justify-content: left;
     text-align: left;
 }
