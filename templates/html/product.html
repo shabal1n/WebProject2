@@ -8,23 +8,24 @@
         <div class="details container">
             <div class="left image-container">
                 <div class="main">
-                    <img src="{% static 'img/ex.jpeg' %}" id="zoom" alt=""/>
+                    <!-- <img src="{% static 'img/ex.jpeg' %}" id="zoom" alt=""/> -->
+                    <img src="/static/img/{{data.image}}" id="zoom" alt=""/>
                 </div>
             </div>
             <div class="right">
-                <span>Product type</span>
-                <h1>NAME OF THE PRODUCT</h1>
-                <div class="price">$0.00</div>
+                <span>{{ data.category }}</span>
+                <h1>{{ data.name }}</h1>
+                <div class="price">{{ data.price }}</div>
                 <form>
                     <div>
                         <select>
                             <option value="Select Size" selected disabled>
                                 Select Size
                             </option>
-                            <option value="1">SIZE</option>
-                            <option value="2">SIZE</option>
-                            <option value="3">SIZE</option>
-                            <option value="4">SIZE</option>
+                            <option value="1">{{ data.size }}</option>
+                            <option value="2">{{ data.size }}</option>
+                            <option value="3">{{ data.size }}</option>
+                            <option value="4">{{ data.size }}</option>
                         </select>
                         <span><i class="bx bx-chevron-down"></i></span>
                     </div>
@@ -34,10 +35,10 @@
                 </form>
                 <h3>Product Detail</h3>
                 <p>
-                    something is written down
+                    {{data.description}}
                 </p>
-                <p>it can be materials or origin of the product</p>
-                <p>bla bla</p>
+                <p></p>
+                <p></p>
             </div>
         </div>
     </section>

@@ -35,13 +35,24 @@ def sneakers(request):
 
 def cart(request):
     current_user = request.user
-    basket = Basket.objects.filter(user_id=current_user.id)
-    items = basket.get_items()
-    return render(request, 'cart.html', {'items': items})
+    # basket = Basket.objects.filter(user_id=current_user.id)
+    # items = basket.get_items()
+    # return render(request, 'cart.html', {'items': items})
 
 
 def product(request):
     return render(request, 'product.html')
+
+
+def product(request,id):
+    product = Items.objects.get(id=id)
+    return render(request, 'product.html', {'data':product}) 
+# def product_detail(request, id, slug):
+#     product = Items.objects.get(id=id)
+#     context = {
+#         'data': product
+#     }
+#     return render(request, 'product.html', context)    
 
 
 def registration(request):
@@ -86,3 +97,6 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('/')
+
+
+    
