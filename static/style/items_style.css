@@ -84,6 +84,9 @@ body {
     justify-content: space-around;
     flex-wrap: wrap;
 }
+.tsort a {
+    text-decoration: none;
+}
 
 #bottom_part {
     background-color: rgb(27, 27, 27);
