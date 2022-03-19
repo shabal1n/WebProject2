@@ -34,12 +34,15 @@ def sneakers(request):
 
 
 def cart(request):
-    items = Items.objects.select_related().filter(category_id=6)
-    return render(request, 'cart.html')
+    current_user = request.user
+    basket = Basket.objects.filter(user_id=current_user.id)
+    items = basket.get_items()
+    return render(request, 'cart.html', {'items': items})
 
 
 def product(request):
     return render(request, 'product.html')
+
 
 def registration(request):
     if request.method == 'POST':
