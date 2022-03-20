@@ -44,15 +44,9 @@ def product(request):
     return render(request, 'product.html')
 
 
-def product(request,id):
-    product = Items.objects.get(id=id)
-    return render(request, 'product.html', {'data':product}) 
-# def product_detail(request, id, slug):
-#     product = Items.objects.get(id=id)
-#     context = {
-#         'data': product
-#     }
-#     return render(request, 'product.html', context)    
+def product(request, id):
+    product_item = Items.objects.get(id=id)
+    return render(request, 'product.html', {'data': product_item})
 
 
 def registration(request):
