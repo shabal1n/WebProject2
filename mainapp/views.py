@@ -35,10 +35,9 @@ def sneakers(request):
 
 def cart(request):
     current_user = request.user
-    basket = Basket.objects.filter(id=current_user.id).values('product')
+    basket = Basket.objects.filter(id=current_user.id).values_list('product__id', flat=True)
     items = Items.objects.all()
-
-    return render(request, 'cart.html', {'items': items})
+    return render(request, 'cart.html', {'items': items, 'basket': basket})
 
 
 def product(request):

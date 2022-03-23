@@ -3,38 +3,45 @@
 {% block title %}l'encore {{ request.path|slice:"1:" }}{% endblock %}
 {% block content %}
     <link rel="stylesheet" href="./static/style/cart_style.css">
+    <script type="text/javascript" src="{% static 'script/cart_script.js' %}"></script>
     <div id="center_part">
-        {% for item in items %}
-            <div class="basket_element" id="item_first">
-                <div class="basket_img">
-                    <img src="{{ item.image|slice:'10:' }}" alt="Bag">
-                </div>
+        {% if basket.first != None %}
+            {% for item in items %}
+                {% if item.id in basket %}
+                    <div class="basket_element" id="item_first">
+                        <div class="basket_img">
+                            <img src="{{ item.image|slice:'10:' }}" alt="Bag">
+                        </div>
 
-                <div class="basket_text">
-                    <p>{{ item.name }}</p>
-                </div>
+                        <div class="basket_text">
+                            <p>{{ item.name }}</p>
+                        </div>
 
-                <div class="basket_price">
-                    <p id="price_value_first">{{ item.price }}</p>
-                    <p>KZT</p>
-                </div>
+                        <div class="basket_price">
+                            <p id="price_value_first">{{ item.price }}</p>
+                            <p>KZT</p>
+                        </div>
 
-                <div class="counter">
-                    <input type="number" name="Quantity" id="counter_value_first" value="1" min="1"
-                           onchange="changeTotal('First', document.getElementById('counter_value_first').value)">
-                </div>
+                        <div class="counter">
+                            <input type="number" name="Quantity" id="counter_value_first" value="1" min="1"
+                                   onchange="changeTotal('First', document.getElementById('counter_value_first').value)">
+                        </div>
 
-                <div class="total_item">
-                    <p>Total:&nbsp;</p>
-                    <p id="totalFirst" class="totalClass">845000</p>
-                    <p>KZT</p>
-                </div>
+                        <div class="total_item">
+                            <p>Total:&nbsp;</p>
+                            <p id="totalFirst" class="totalClass">845000</p>
+                            <p>KZT</p>
+                        </div>
 
-                <div class="cross">
-                    <i class="fas fa-times" onclick="hideItems('first')"></i>
-                </div>
-            </div>
-        {% endfor %}
+                        <div class="cross">
+                            <i class="fas fa-times" onclick="hideItems('first')"></i>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <h1>Your cart is empty!</h1>
+        {% endif %}
 
         <div id="total_overall">
             <p style="margin-right: 2%; margin-left: auto;">Total:</p>
