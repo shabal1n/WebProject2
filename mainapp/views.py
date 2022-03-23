@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
-from .models import Items
+from .models import Items, Basket
 
 
 def main(request):
@@ -35,9 +35,10 @@ def sneakers(request):
 
 def cart(request):
     current_user = request.user
-    # basket = Basket.objects.filter(user_id=current_user.id)
-    # items = basket.get_items()
-    # return render(request, 'cart.html', {'items': items})
+    basket = Basket.objects.filter(id=current_user.id).values('product')
+    items = Items.objects.all()
+
+    return render(request, 'cart.html', {'items': items})
 
 
 def product(request):

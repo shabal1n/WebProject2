@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -49,3 +50,14 @@ class Items(models.Model):
     class Meta:
         verbose_name = 'Item'
         verbose_name_plural = 'Items'
+
+
+class Basket(models.Model):
+    product = models.ManyToManyField(Items, blank=True, related_name='PRODUCTS')
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    order = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Basket'
+        verbose_name_plural = 'Baskets'
+        ordering = ['order']

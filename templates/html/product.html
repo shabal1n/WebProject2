@@ -8,8 +8,7 @@
         <div class="details container">
             <div class="left image-container">
                 <div class="main">
-                    <!-- <img src="{% static 'img/ex.jpeg' %}" id="zoom" alt=""/> -->
-                    <img src="/static/img/{{data.image}}" id="zoom" alt=""/>
+                    <img src="/static/img/{{ data.image }}" id="zoom" alt=""/>
                 </div>
             </div>
             <div class="right">
@@ -35,7 +34,7 @@
                 </form>
                 <h3>Product Detail</h3>
                 <p>
-                    {{data.description}}
+                    {{ data.description }}
                 </p>
                 <p></p>
                 <p></p>
