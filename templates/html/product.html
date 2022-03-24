@@ -4,12 +4,12 @@
 {% block content %}
     <link rel="stylesheet" href="{% static 'style/items_style.css' %}">
     <link rel="stylesheet" href="{% static 'style/product.css' %}">
+    
     <section class="section product-detail">
         <div class="details container">
             <div class="left image-container">
                 <div class="main">
-                    <!-- <img src="{% static 'img/ex.jpeg' %}" id="zoom" alt=""/> -->
-                    <img src="/static/img/{{data.image}}" id="zoom" alt=""/>
+                      <img src="{{ data.image.url }}" id="zoom" >
                 </div>
             </div>
             <div class="right">
