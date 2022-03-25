@@ -40,8 +40,8 @@ def cart(request):
     return render(request, 'cart.html', {'items': items, 'basket': basket})
 
 
-def product(request):
-    return render(request, 'product.html')
+# def product(request):
+#     return render(request, 'product.html')
 
 
 def product(request, id):
