@@ -41,7 +41,7 @@ class Items(models.Model):
     name = models.ForeignKey(Names, blank=True, null=True, on_delete=models.CASCADE, verbose_name='BRAND', )
     category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE, verbose_name='CATEGORY')
     price = models.IntegerField(blank=True, null=True, verbose_name='PRICE')
-    image = models.ImageField(null=True, blank=True, upload_to='static/img/upload')
+    image = models.ImageField(null=True, blank=True,  )
     size = models.ForeignKey(Sizes, blank=True, null=True, on_delete=models.CASCADE, verbose_name='SIZE')
     stock = models.IntegerField(verbose_name='STOCK')
     description = models.TextField(blank=True)

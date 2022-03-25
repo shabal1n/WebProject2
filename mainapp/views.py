@@ -35,13 +35,8 @@ def sneakers(request):
 
 def product(request,id):
     product = Items.objects.get(id=id)
-    return render(request, 'product.html', {'data':product}) 
-# def product_detail(request, id, slug):
-#     product = Items.objects.get(id=id)
-#     context = {
-#         'data': product
-#     }
-#     return render(request, 'product.html', context)    
+    related_products=Items.objects.filter(category = product.category).exclude(id=id)[:3]
+    return render(request, 'product.html', {'data':product, 'related_products':related_products}) 
 
 def registration(request):
     if request.method == 'POST':

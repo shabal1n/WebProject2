@@ -1,3 +1,4 @@
+
 .product-detail .details {
     display:grid;
     grid-template-columns: 1fr 1.2fr;
@@ -98,5 +99,42 @@
   .product-detail p{
       line-height: 1.5;
   }
-  
+
+  .tsort1 img {
+    width: 100%;
+    height: auto;
+    border-radius: 2px;
+    margin-bottom: 3%;
+}
+
+.tsort1 h4 {
+    font-size: 1.8vw;
+}
+
+.tsort1 h5 {
+    font-size: 1.8vw;
+}
+
+.tsort1 {
+    text-align: center;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-block: 3%;
+    height: 16%;
+    width: 20%;
+    text-size-adjust: none;
+}
+
+.kurt1 {
+    margin-top: 4%;
+    margin-bottom: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.tsort1 a {
+    text-decoration: none;
+}
+
   
