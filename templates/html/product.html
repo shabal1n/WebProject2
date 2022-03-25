@@ -45,14 +45,15 @@
         </div>     
 </section>
 <!-- related products -->
+<h3 style="margin-left: 180px;">Related products</h3>
 <div class="kurt">
-    {% for item in related %}
+    {% for related_product in related_products %}
     <div class="tsort">
-        <a href="{% url 'product' item.id %}">
-            <img src="{{ item.image|slice:'10:' }}">  
-            <h4 style="color: #330867;" >{{item.name}}</h4>   
+        <a href="{% url 'product' related_product.id %}">
+            <img src="{{ related_product.image.url|slice:'10:' }}">  
+            <h4 style="color: #330867;" >{{related_product.name}}</h4>   
         </a>
-            <h5 style="color: #330867;"> {{ item.price }} KZT</h5>
+            <h5 style="color: #330867;"> {{ related_product.price }} KZT</h5>
      </div>
     {% endfor %}
 </div> 
