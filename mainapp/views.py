@@ -33,6 +33,7 @@ def sneakers(request):
     return render(request, 'items.html', {'items': items})
 
 
+
 def cart(request):
     current_user = request.user
     basket = Basket.objects.filter(id=current_user.id).values_list('product__id', flat=True)
@@ -40,13 +41,10 @@ def cart(request):
     return render(request, 'cart.html', {'items': items, 'basket': basket})
 
 
-# def product(request):
-#     return render(request, 'product.html')
-
-
 def product(request, id):
-    product_item = Items.objects.get(id=id)
-    return render(request, 'product.html', {'data': product_item})
+    product = Items.objects.get(id=id)
+    related_products=Items.objects.filter(category = product.category).exclude(id=id)[:3]
+    return render(request, 'product.html', {'data':product, 'related_products':related_products}) 
 
 
 def registration(request):
