@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
+from django.utils import timezone
+from django.http import HttpResponseRedirect
 from .models import Items, Basket
 
 
@@ -33,7 +35,6 @@ def sneakers(request):
     return render(request, 'items.html', {'items': items})
 
 
-
 def cart(request):
     current_user = request.user
     basket = Basket.objects.filter(id=current_user.id).values_list('product__id', flat=True)
@@ -42,9 +43,24 @@ def cart(request):
 
 
 def product(request, id):
-    product = Items.objects.get(id=id)
-    related_products=Items.objects.filter(category = product.category).exclude(id=id)[:3]
-    return render(request, 'product.html', {'data':product, 'related_products':related_products}) 
+    if request.method == 'POST':
+        user = request.user
+        item = Items.objects.get(id=id)
+        price = 0
+        completed_at = timezone.now
+
+        if Basket.objects.filter(order_id=user.id):
+            tmp = Basket.objects.get(order=user.id)
+            tmp.product.add(item)
+            tmp.save()
+        else:
+            basket = Basket.objects.create(order=user, product=item, price=price, completed_at=completed_at)
+            basket.save()
+        return HttpResponseRedirect(request.path_info)
+    else:
+        product = Items.objects.get(id=id)
+        related_products = Items.objects.filter(category=product.category).exclude(id=id)[:3]
+        return render(request, 'product.html', {'data': product, 'related_products': related_products})
 
 
 def registration(request):
@@ -89,6 +105,3 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('/')
-
-
-    

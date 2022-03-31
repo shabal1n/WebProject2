@@ -78,19 +78,13 @@ body {
     flex-direction: row;
     border: 1px solid #1b1b1b;
     border-radius: 5px;
-    margin-bottom: 1%;
-    margin-top: 1%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
 }
 
 .basket_img {
     height: 90%;
     width: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 1%;
-    margin-right: 4%;
+    margin: auto;
 }
 
 .basket_img img {
@@ -105,17 +99,14 @@ body {
 }
 
 .basket_text {
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: auto;
     display: flex;
     flex-direction: row;
     font-weight: 700;
 }
 
 .basket_price {
-    margin-left: 3%;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: auto;
     display: flex;
     flex-direction: row;
     font-weight: 600;

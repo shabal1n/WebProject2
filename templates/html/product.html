@@ -4,22 +4,20 @@
 {% block content %}
     <link rel="stylesheet" href="{% static './style/items_style.css' %}">
     <link rel="stylesheet" href="{% static './style/product.css' %}">
-    
-    
-    
+
+
+
     <section class="section product-detail">
         <div class="details container">
             <div class="left image-container">
                 <div class="main">
-<<<<<<< HEAD
-                    <img src="/static/img/{{ data.image }}" id="zoom" alt=""/>
-=======
-                      <img src="{{ data.image.url }}" id="zoom" >
->>>>>>> Ayseke
+                    {% with img=data.image|slice:'7:' %}
+                        <img src="{% static 'img/upload/' %}{{ img }}" id="zoom" alt=""/>
+                    {% endwith %}
                 </div>
             </div>
             <div class="right">
-                <span>{{ data.category }}</span>
+                <span>{{ data.brand }}</span>
                 <h1>{{ data.name }}</h1>
                 <div class="price">{{ data.price }}</div>
                 <form>
@@ -28,16 +26,16 @@
                             <option value="Select Size" selected disabled>
                                 Select Size
                             </option>
-                            <option value="1">{{ data.size }}</option>
-                            <option value="2">{{ data.size }}</option>
-                            <option value="3">{{ data.size }}</option>
-                            <option value="4">{{ data.size }}</option>
+                            {#                            {% for size_i in data.size %}#}
+                            <option value={{ data.size }}>{{ data.size }}</option>
+                            {#                            {% endfor %}#}
                         </select>
                         <span><i class="bx bx-chevron-down"></i></span>
                     </div>
                 </form>
-                <form class="form">
-                    <a href="./cart.html" class="addCart">Add To Cart</a>
+                <form method="POST" class="form">
+                    {% csrf_token %}
+                    <button href="#" class="addCart">Add To Cart</button>
                 </form>
                 <h3>Product Detail</h3>
                 <p>
@@ -46,21 +44,21 @@
                 <p></p>
                 <p></p>
             </div>
-        </div>     
-</section>
-<!-- related products -->
-<h3 style="margin-left: 180px;">Related products</h3>
-<div class="kurt">
-    {% for related_product in related_products %}
-    <div class="tsort">
-        <a href="{% url 'product' related_product.id %}">
-            <img src="{{ related_product.image |slice:'10:' }}">  
-            <h4 style="color: #330867;" >{{related_product.name}}</h4>   
-        </a>
-            <h5 style="color: #330867;"> {{ related_product.price }} KZT</h5>
-     </div>
-    {% endfor %}
-</div> 
+        </div>
+    </section>
+    <!-- related products -->
+    <h3 style="margin-left: 180px;">Related products</h3>
+    <div class="kurt">
+        {% for related_product in related_products %}
+            <div class="tsort">
+                <a href="{% url 'product' related_product.id %}">
+                    <img src="{{ related_product.image |slice:'10:' }}">
+                    <h4 style="color: #330867;">{{ related_product.name }}</h4>
+                </a>
+                <h5 style="color: #330867;"> {{ related_product.price }} KZT</h5>
+            </div>
+        {% endfor %}
+    </div>
 
     <script src="{% static 'script/zoomsl.min.js' %}"></script>
     <script>

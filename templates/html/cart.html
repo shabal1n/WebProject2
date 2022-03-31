@@ -1,25 +1,24 @@
 {% extends 'template.html' %}
 {% load static %}
+{% block extrablock %}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="{% static 'style/cart_style.css' %}">
+    <script type="text/javascript" src="{% static 'script/cart_script.js' %}">window.alert("Connected")</script>
+{% endblock %}
 {% block title %}l'encore {{ request.path|slice:"1:" }}{% endblock %}
 {% block content %}
-    <link rel="stylesheet" href="./static/style/cart_style.css">
-    <script type="text/javascript" src="{% static 'script/cart_script.js' %}"></script>
+
     <div id="center_part">
         {% if basket.first != None %}
             {% for item in items %}
                 {% if item.id in basket %}
                     <div class="basket_element" id="item_first">
                         <div class="basket_img">
-                            <img src="{{ item.image|slice:'10:' }}" alt="Bag">
+                            <img src="{% static 'img/upload/' %}{{ item.image|slice:'7:' }}" alt="Bag">
                         </div>
 
                         <div class="basket_text">
-                            <p>{{ item.name }}</p>
-                        </div>
-
-                        <div class="basket_price">
-                            <p id="price_value_first">{{ item.price }}</p>
-                            <p>KZT</p>
+                            <p>{{ item.brand }} {{ item.name }}</p>
                         </div>
 
                         <div class="counter">
@@ -27,60 +26,59 @@
                                    onchange="changeTotal('First', document.getElementById('counter_value_first').value)">
                         </div>
 
-                        <div class="total_item">
-                            <p>Total:&nbsp;</p>
-                            <p id="totalFirst" class="totalClass">845000</p>
+                        <div class="basket_price">
+                            <p id="price_value_first">{{ item.price }}</p>
                             <p>KZT</p>
                         </div>
 
                         <div class="cross">
-                            <i class="fas fa-times" onclick="hideItems('first')"></i>
+                            <i class="fas fa-trash" onclick="hideItems('first')"></i>
                         </div>
                     </div>
                 {% endif %}
             {% endfor %}
+            <div style="text-align: center; margin-bottom: 3%;">
+                <button class="btn btn-outline-dark" id="proceed">Proceed to payment</button>
+            </div>
+
+            <div class="hidden">
+                <div style="margin-bottom: 1%;">
+                    <p>Choose date of shipping:</p>
+                    <input type="date" id="shippingDate">
+                </div>
+
+                <div style="margin-bottom: 1%; text-align: center;">
+                    <p>Method of delivery:</p>
+                    <input type="radio" id="no_contact" name="group" value="Courier">
+                    <label for="no_contact" class="radio_type">Courier delivery</label>
+                    <br>
+                    <input type="radio" id="pick" name="group" value="Pick up">
+                    <label for="pick" class="radio_type">Pick up from post</label>
+                    <br>
+                </div>
+
+                <div>
+                    <p>Insert your address:</p>
+                    <input type="text" placeholder="Address">
+                </div>
+
+                <div style="margin-top: 1%;">
+                    <input type="checkbox" name="Terms" id="terms">
+                    <label for="terms">Agree to the terms and conditions</label>
+                </div>
+
+                <div style="margin-top: 1%;">
+                    <button>Order</button>
+                </div>
+            </div>
         {% else %}
-            <h1>Your cart is empty!</h1>
+            <h1 style="text-align: center; margin-bottom: 5%">Your cart is empty!</h1>
         {% endif %}
 
-        <div id="total_overall">
-            <p style="margin-right: 2%; margin-left: auto;">Total:</p>
-            <p style="margin-right: 1%;" id="price">2187173</p>
-            <p>KZT</p>
-        </div>
-        <div style="text-align: center; margin-bottom: 3%;">
-            <button class="btn btn-outline-dark" id="proceed">Proceed to payment</button>
-        </div>
-
-        <div class="hidden">
-            <div style="margin-bottom: 1%;">
-                <p>Choose date of shipping:</p>
-                <input type="date" id="shippingDate">
-            </div>
-
-            <div style="margin-bottom: 1%; text-align: center;">
-                <p>Method of delivery:</p>
-                <input type="radio" id="no_contact" name="group" value="Courier">
-                <label for="no_contact" class="radio_type">Courier delivery</label>
-                <br>
-                <input type="radio" id="pick" name="group" value="Pick up">
-                <label for="pick" class="radio_type">Pick up from post</label>
-                <br>
-            </div>
-
-            <div>
-                <p>Insert your address:</p>
-                <input type="text" placeholder="Address">
-            </div>
-
-            <div style="margin-top: 1%;">
-                <input type="checkbox" name="Terms" id="terms">
-                <label for="terms">Agree to the terms and conditions</label>
-            </div>
-
-            <div style="margin-top: 1%;">
-                <button>Order</button>
-            </div>
-        </div>
+        {#        <div id="total_overall">#}
+        {#            <p style="margin-right: 2%; margin-left: auto;">Total:</p>#}
+        {#            <p style="margin-right: 1%;" id="price">2187173</p>#}
+        {#            <p>KZT</p>#}
+        {#        </div>#}
     </div>
 {% endblock %}
