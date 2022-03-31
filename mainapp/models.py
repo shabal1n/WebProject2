@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.html import mark_safe
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -49,3 +51,21 @@ class Items(models.Model):
     class Meta:
         verbose_name = 'Item'
         verbose_name_plural = 'Items'
+
+#Product Review
+RATING=(
+    (1, '1'),
+    (2,'2'),
+    (3,'3'),
+    (4,'4'),
+    (5,'5'),
+)    
+class ProductReview(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    product=models.ForeignKey(Items, on_delete=models.CASCADE)
+    review_text=models.TextField()
+    review_rating=models.CharField(choices=RATING, max_length=150)       
+
+    class Meta:
+        verbose_name = 'Review'
+        verbose_name_plural = 'Reviews' 

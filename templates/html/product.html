@@ -44,8 +44,33 @@
             </div>
         </div>     
 </section>
+<!-- Reviews -->
+<div class="col-md-6" style="float:none;margin:auto;margin-top: -50px;margin-bottom: 30px;">
+    <h3 class="my-3">Reviews - 4.5/5 <i class="fa fa-star text-warning"></i>
+        <button type="button" class="btn btn-warning btn-sm float-right">Add Review</button>
+    </h3>
+    <div class="card">
+        <div class="card-body" style="max-height: 400px; overflow: auto;">
+             <!-- Detail -->
+             <blockquote class="blockquote text-right">
+               <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat
+               a ante.</small>
+               <footer class="blockquote-footer">User
+                 <cite title="Source Title">
+                     <i class="fa fa-star text-warning"></i>
+                     <i class="fa fa-star text-warning"></i>
+                     <i class="fa fa-star text-warning"></i>
+                     <i class="fa fa-star text-warning"></i>
+                 </cite>
+               </footer>
+             </blockquote>
+             <hr/>
+        </div>
+    </div>
+</div>    
+                                                                                                                                        
 <!-- related products -->
-<h3 style="margin-left: 180px;">Related products</h3>
+<h3 style="margin-left: 315px;">Related products</h3>
 <div class="kurt">
     {% for related_product in related_products %}
     <div class="tsort">
@@ -57,6 +82,8 @@
      </div>
     {% endfor %}
 </div> 
+
+
 
     <script src="{% static 'script/zoomsl.min.js' %}"></script>
     <script>

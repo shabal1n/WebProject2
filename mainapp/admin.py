@@ -18,6 +18,10 @@ class NameAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')
 
 
+class ProductReviewAdmin(admin.ModelAdmin):
+    list_display = ('user', 'product', 'review_text', 'review_rating')
+
+
 admin.site.register(Items, ItemAdmin)
 
 admin.site.register(Names, NameAdmin)
@@ -25,3 +29,5 @@ admin.site.register(Names, NameAdmin)
 admin.site.register(Category, CategoryAdmin)
 
 admin.site.register(Sizes, SizeAdmin)
+
+admin.site.register (ProductReview, ProductReviewAdmin)
