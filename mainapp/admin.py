@@ -21,6 +21,10 @@ class NameAdmin(admin.ModelAdmin):
 class ProductReviewAdmin(admin.ModelAdmin):
     list_display = ('user', 'product', 'review_text', 'review_rating')
 
+class ProductReviewAdmin(admin.ModelAdmin):
+    list_display=('user','product','review_text','get_review_rating')
+
+
 
 admin.site.register(Items, ItemAdmin)
 

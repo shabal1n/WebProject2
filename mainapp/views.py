@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
+from django.http import JsonResponse, HttpResponse
 from django.contrib import messages
-from .models import Items
+from .models import Items, ProductReview
+from .forms import ReviewAdd
 
 
 def main(request):
@@ -36,7 +38,9 @@ def sneakers(request):
 def product(request,id):
     product = Items.objects.get(id=id)
     related_products=Items.objects.filter(category = product.category).exclude(id=id)[:3]
-    return render(request, 'product.html', {'data':product, 'related_products':related_products}) 
+    reviewForm=ReviewAdd()
+    return render(request, 'product.html', {'data':product, 'related_products':related_products, 
+    'form':reviewForm}) 
 
 def registration(request):
     if request.method == 'POST':
@@ -81,5 +85,15 @@ def logout(request):
     auth.logout(request)
     return redirect('/')
 
-
+# Save Review
+def save_review(request,id):
+    product=Items.objects.get(pk=id)
+    user=request.user
+    review=ProductReview.objects.create(
+    user=user,
+    product=product,
+    review_text=request.POST['review_text'],
+    review_rating=request.POST['review_rating'],
+    )
+    return JsonResponse({'bool':True})
     

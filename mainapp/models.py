@@ -69,3 +69,6 @@ class ProductReview(models.Model):
     class Meta:
         verbose_name = 'Review'
         verbose_name_plural = 'Reviews' 
+
+    def get_review_rating(self):
+     return self.review_rating  
