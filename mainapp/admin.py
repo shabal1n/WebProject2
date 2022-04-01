@@ -3,7 +3,7 @@ from .models import *
 
 
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'brand', 'category', 'image', 'stock', 'size', 'price')
+    list_display = ('id', 'name', 'category', 'image', 'stock', 'price')
 
 
 class SizeAdmin(admin.ModelAdmin):
@@ -14,28 +14,28 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')
 
 
-class BrandsAdmin(admin.ModelAdmin):
+class BrandAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')
 
 
-class TransportAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title')
+class BasketItemAdmin(admin.TabularInline):
+    model = BasketItem
 
 
-# class BasketAdmin(admin.ModelAdmin):
-#     list_display = ('order', 'product')
+class BasketAdmin(admin.ModelAdmin):
+   inlines = [BasketItemAdmin]
 
 
 admin.site.register(Items, ItemAdmin)
 
-admin.site.register(Brands, BrandsAdmin)
+admin.site.register(Brands, BrandAdmin)
 
 admin.site.register(Category, CategoryAdmin)
 
 admin.site.register(Sizes, SizeAdmin)
 
-admin.site.register(Basket)
+admin.site.register(Basket, BasketAdmin)
+
+admin.site.register(Order)
 
 admin.site.register(DeliveryCompany)
-
-admin.site.register(Transport, TransportAdmin)

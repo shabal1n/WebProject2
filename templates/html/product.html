@@ -26,9 +26,9 @@
                             <option value="Select Size" selected disabled>
                                 Select Size
                             </option>
-                            {#                            {% for size_i in data.size %}#}
-                            <option value={{ data.size }}>{{ data.size }}</option>
-                            {#                            {% endfor %}#}
+                            {% for size_i in data.size.all %}
+                                <option value={{ data.size.title }}>{{ data.size.title }}</option>
+                            {% endfor %}
                         </select>
                         <span><i class="bx bx-chevron-down"></i></span>
                     </div>

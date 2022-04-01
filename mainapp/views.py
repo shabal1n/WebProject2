@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
-from django.utils import timezone
 from django.http import HttpResponseRedirect
-from .models import Items, Basket
+from .models import Items, Basket, BasketItem
 
 
 def main(request):
@@ -37,25 +36,25 @@ def sneakers(request):
 
 def cart(request):
     current_user = request.user
-    basket = Basket.objects.filter(id=current_user.id).values_list('product__id', flat=True)
-    items = Items.objects.all()
-    return render(request, 'cart.html', {'items': items, 'basket': basket})
+    basket = Basket.objects.get(user=current_user)
+    items = BasketItem.objects.filter(cart=basket).all()
+    return render(request, 'cart.html', {'items': items})
 
 
 def product(request, id):
     if request.method == 'POST':
         user = request.user
         item = Items.objects.get(id=id)
-        price = 0
-        completed_at = timezone.now
+        basket_global = Basket.objects.get(id=user.id)
 
-        if Basket.objects.filter(order_id=user.id):
-            tmp = Basket.objects.get(order=user.id)
-            tmp.product.add(item)
+        if Basket.objects.filter(id=user.id):
+            tmp = BasketItem.objects.create(cart=basket_global, item=item, count=1)
             tmp.save()
         else:
-            basket = Basket.objects.create(order=user, product=item, price=price, completed_at=completed_at)
+            basket = Basket.objects.create(user=User.objects.get(id=user.id))
             basket.save()
+            tmp = BasketItem.objects.create(cart=basket, item=item, count=1)
+            tmp.save()
         return HttpResponseRedirect(request.path_info)
     else:
         product = Items.objects.get(id=id)

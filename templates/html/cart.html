@@ -9,16 +9,16 @@
 {% block content %}
 
     <div id="center_part">
-        {% if basket.first != None %}
+        {% if items.first != None %}
             {% for item in items %}
-                {% if item.id in basket %}
+                {% with product=item.item %}
                     <div class="basket_element" id="item_first">
                         <div class="basket_img">
-                            <img src="{% static 'img/upload/' %}{{ item.image|slice:'7:' }}" alt="Bag">
+                            <img src="{% static 'img/upload/' %}{{ product.image|slice:'7:' }}" alt="Bag">
                         </div>
 
                         <div class="basket_text">
-                            <p>{{ item.brand }} {{ item.name }}</p>
+                            <p>{{ product.brand }} {{ product.name }}</p>
                         </div>
 
                         <div class="counter">
@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="basket_price">
-                            <p id="price_value_first">{{ item.price }}</p>
+                            <p id="price_value_first">{{ product.price }}</p>
                             <p>KZT</p>
                         </div>
 
@@ -35,7 +35,7 @@
                             <i class="fas fa-trash" onclick="hideItems('first')"></i>
                         </div>
                     </div>
-                {% endif %}
+                {% endwith %}
             {% endfor %}
             <div style="text-align: center; margin-bottom: 3%;">
                 <button class="btn btn-outline-dark" id="proceed">Proceed to payment</button>

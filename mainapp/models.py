@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.utils import timezone
 
 
 class Category(models.Model):
@@ -16,7 +15,7 @@ class Category(models.Model):
 
 
 class Brands(models.Model):
-    title = models.CharField(max_length=255, verbose_name='brand', blank=True, null=True, )
+    title = models.CharField(max_length=255, verbose_name='NAME', blank=True, null=True, )
 
     def __str__(self):
         return self.title
@@ -40,17 +39,17 @@ class Sizes(models.Model):
 
 
 class Items(models.Model):
-    name = models.TextField(blank=True, default='')
+    name = models.TextField(default='')
     brand = models.ForeignKey(Brands, blank=True, null=True, on_delete=models.CASCADE, verbose_name='BRAND')
     category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE, verbose_name='CATEGORY')
     price = models.IntegerField(blank=True, null=True, verbose_name='PRICE')
-    image = models.ImageField(null=True, blank=True)
-    size = models.ForeignKey(Sizes, blank=True, null=True, on_delete=models.CASCADE, verbose_name='SIZE')
+    image = models.ImageField(null=True, blank=True,  )
+    size = models.ManyToManyField(Sizes)
     stock = models.IntegerField(verbose_name='STOCK')
     description = models.TextField(blank=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.name}, {self.price} KZT"
 
     class Meta:
         verbose_name = 'Item'
@@ -58,36 +57,54 @@ class Items(models.Model):
 
 
 class Basket(models.Model):
-    order = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ManyToManyField(Items, blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    address = models.CharField(max_length=155, blank=True, null=True)
-    created_at = models.DateTimeField(default=timezone.now, verbose_name='data_published')
-    completed_at = models.DateTimeField()
-    done = models.BooleanField(default=False, verbose_name='done_items')
-    delivery = models.ForeignKey('DeliveryCompany', on_delete=models.SET_NULL, blank=True, null=True)
-    transport = models.ForeignKey('Transport', on_delete=models.SET_NULL, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    class Meta:
-        verbose_name = 'Basket'
-        verbose_name_plural = 'Baskets'
-        ordering = ['order']
+    def total(self):
+        basket_items = BasketItem.objects.filter(cart=self)
+        s = 0
+        for basket_item in basket_items:
+            s = s + basket_item.item.price * basket_item.count
 
-
-class Transport(models.Model):
-    title = models.CharField(max_length=155, blank=True, null=True, verbose_name='Transport Name')
+        return s
 
     def __str__(self):
-        return self.title
+        return f"Cart of {self.user.username}, total: {self.total()} KZT"
+
+
+class BasketItem(models.Model):
+    cart = models.ForeignKey(Basket, on_delete=models.DO_NOTHING)
+    item = models.ForeignKey(Items, on_delete=models.DO_NOTHING)
+    count = models.IntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.item}, {self.count} pc"
+
+
+class Order(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    address = models.CharField(max_length=250)
+    city = models.CharField(max_length=100)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    delivery = models.ForeignKey('DeliveryCompany', on_delete=models.SET_NULL, blank=True, null=True)
+    paid = models.BooleanField(default=False)
+    basket = models.ForeignKey(Basket, on_delete=models.DO_NOTHING, default='')
 
     class Meta:
-        verbose_name = 'Transport'
-        verbose_name_plural = 'Transports'
+        ordering = ('-created',)
+        verbose_name = 'Order'
+        verbose_name_plural = 'Orders'
+
+    def __str__(self):
+        return 'Order {}'.format(self.id)
+
+    def get_total_cost(self):
+        return sum(item.get_cost() for item in self.items.all())
 
 
 class DeliveryCompany(models.Model):
-    title = models.CharField(max_length=155, blank=True, null=True, verbose_name='Company Name')
-    transport = models.ManyToManyField(Transport)
+    title = models.CharField(max_length=155, verbose_name='Company Name', default='3')
 
     def __str__(self):
         return self.title
