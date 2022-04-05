@@ -9,3 +9,5 @@ mainapp/__pycache__/views.cpython-39.pyc
 myproject/__pycache__/__init__.cpython-39.pyc
 myproject/__pycache__/settings.cpython-39.pyc
 db.sqlite
+.vscode
+.idea
