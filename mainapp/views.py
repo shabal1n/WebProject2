@@ -41,6 +41,12 @@ def cart(request):
     return render(request, 'cart.html', {'items': items})
 
 
+def delete_item_cart(request, part_id=None):
+    object_basket = BasketItem.objects.get(item_id=part_id)
+    object_basket.delete()
+    return redirect('cart')
+
+
 def product(request, id):
     if request.method == 'POST':
         user = request.user
