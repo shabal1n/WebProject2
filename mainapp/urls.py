@@ -12,5 +12,7 @@ urlpatterns = [
     path('registration', views.registration, name='registration'),
     path('login', views.login, name='login'),
     path('logout', views.logout, name='logout'),
-    path('save_review/<int:id>',views.save_review, name='save_review')
+    path('cart', views.cart, name='cart'),
+    path('cart/delete/<int:part_id>', views.delete_item_cart, name='delete_view'),
+    path('save_review/<int:id>', views.save_review, name='save_review')
 ]
