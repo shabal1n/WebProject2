@@ -132,7 +132,7 @@ class ProductReview(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Items, on_delete=models.CASCADE)
     review_text = models.TextField()
-    review_rating = models.IntegerField(choices=RATING, max_length=150)
+    review_rating = models.IntegerField(choices=RATING)
 
     class Meta:
         verbose_name = 'Review'

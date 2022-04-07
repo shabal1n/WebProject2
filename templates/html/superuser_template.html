@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100&display=swap" rel="stylesheet">
+    <link href="http://fonts.cdnfonts.com/css/didot" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <script src="{% static 'script/vue.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'style/superuser_style.css' %}">
+    <title>Administrator page</title>
+</head>
+
+<body>
+<div id="header_container">
+    <div id="header" onmouseover="changeHeaderColor('rgb(27, 27, 27)')" onmouseout="changeHeaderColor('transparent')">
+        <br>
+        <div id="brand_name">
+            <h2>l'éncore</h2>
+            <h5>Admin page</h5>
+            <div style="text-align: right; margin-right: 7%" id="user_buttons">
+                {% if user.is_authenticated %}
+
+                    <h6 style="font-family: Futura, 'Trebuchet MS', Arial, sans-serif;">
+                        Welcome, {{ user.username }}!</h6>
+
+                    <button class="btn btn-outline-light button_main" title="Log out"
+                            onclick="location.href='http://127.0.0.1:8000/logout';">
+                        <i class="fas fa-sign-out-alt" title="Log out"></i>
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block content %}
+    <p>Default value</p>
+{% endblock %}
+
+<div id="bottom_part">
+    <vue-footer-contacts></vue-footer-contacts>
+    <vue-footer-adress></vue-footer-adress>
+    <vue-footer-social></vue-footer-social>
+    <vue-footer-news></vue-footer-news>
+</div>
+<script src="{% static 'script/Footer.js' %}"></script>
+<script type="text/javascript" src="{% static 'script/items_script.js' %}"></script>
+</body>
+</html>

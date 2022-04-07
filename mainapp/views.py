@@ -114,7 +114,10 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            return redirect('/')
+            if request.user.is_superuser:
+                return redirect('superuser')
+            else:
+                return redirect('/')
         else:
             messages.info(request, 'Credentials invalid')
             return redirect('login')
@@ -137,4 +140,18 @@ def save_review(request, id):
         review_text=request.POST['review_text'],
         review_rating=request.POST['review_rating'],
     )
+    review.save()
     return JsonResponse({'bool': True})
+
+
+def change_count(request, item_id):
+    cart_current = Basket.objects.get(user=request.user)
+    item_current = Items.objects.get(pk=item_id)
+    basket_item = BasketItem.objects.get(cart=cart_current, item=item_current)
+    basket_item.count += 1
+    basket_item.save()
+    return redirect('cart')
+
+
+def superuser(request):
+    return render(request, 'superuser_main.html')

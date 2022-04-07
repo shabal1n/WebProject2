@@ -23,7 +23,7 @@
 
                         <div class="counter" style="margin-left: 5%">
                             <input type="number" name="Quantity" id="counter_value_first" value={{ item.count }} min="1"
-                                   onchange="changeTotal('First', document.getElementById('counter_value_first').value)">
+                                   onchange="location.href='/change_count/'+ {{ product.id }};">
                         </div>
 
                         <div class="basket_price" style="margin-left: 8%">
