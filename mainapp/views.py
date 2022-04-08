@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from .models import Items, ProductReview, Basket, BasketItem
 from .forms import ReviewAdd
 
@@ -154,4 +155,7 @@ def change_count(request, item_id):
 
 
 def superuser(request):
-    return render(request, 'superuser_main.html')
+    user = get_user_model()
+    users = user.objects.all()
+
+    return render(request, 'superuser_main.html', {'users': users})
