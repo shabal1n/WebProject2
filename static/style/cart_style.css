@@ -150,8 +150,11 @@ body {
   margin-right: auto;
   margin-bottom: 3%;
 }
-.hidden {
+.payment {
   text-align: center;
-  display: none;
+  justify-content: center;
+  display: block;
   margin-bottom: 3%;
+  width: 50%;
+  border: 1px solid red;
 }

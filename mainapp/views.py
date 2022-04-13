@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib import messages
-from django.contrib.auth import get_user_model
-from .models import Items, ProductReview, Basket, BasketItem
+from .models import Items, ProductReview, Basket, BasketItem, Order, DeliveryCompany
 from .forms import ReviewAdd
 
 
@@ -40,7 +39,7 @@ def product(request, id):
     if request.method == 'POST':
         user = request.user
         item = Items.objects.get(id=id)
-        basket_global = Basket.objects.get(id=user.id)
+        basket_global = Basket.objects.get(user=user.id)
 
         if Basket.objects.filter(id=user.id):
             list_items = []
@@ -72,15 +71,20 @@ def product(request, id):
 
 def cart(request):
     current_user = request.user
-    basket = Basket.objects.get(user=current_user)
+    if Basket.objects.filter(user=current_user.id).exists():
+        basket = Basket.objects.get(user=current_user)
+    else:
+        basket = Basket.objects.create(user=current_user)
+        basket.save()
     items = BasketItem.objects.filter(cart=basket).all()
     total = basket.total()
     return render(request, 'cart.html', {'items': items, 'total': total})
 
 
 def delete_item_cart(request, part_id=None):
-    object_basket = BasketItem.objects.get(item_id=part_id)
-    object_basket.delete()
+    object_basket = BasketItem.objects.filter(item_id=part_id)
+    for item in object_basket:
+        item.delete()
     return redirect('cart')
 
 
@@ -145,17 +149,23 @@ def save_review(request, id):
     return JsonResponse({'bool': True})
 
 
-def change_count(request, item_id):
+def change_count(request, item_id, count):
     cart_current = Basket.objects.get(user=request.user)
     item_current = Items.objects.get(pk=item_id)
     basket_item = BasketItem.objects.get(cart=cart_current, item=item_current)
-    basket_item.count += 1
+    basket_item.count = count
     basket_item.save()
     return redirect('cart')
 
 
-def superuser(request):
-    user = get_user_model()
-    users = user.objects.all()
-
-    return render(request, 'superuser_main.html', {'users': users})
+def make_order(request):
+    cart_current = Basket.objects.get(user=request.user)
+    if not Order.objects.filter(user=request.user, basket=cart_current).exists():
+        order_this = Order.objects.create(user=request.user, basket=cart_current)
+        order_this.save()
+    else:
+        order_this = Order.objects.get(user=request.user, basket=cart_current)
+    items = BasketItem.objects.filter(cart=cart_current).all()
+    total = cart_current.total()
+    deliveries = DeliveryCompany.objects.all()
+    return render(request, 'order.html', {'items': items, 'total': total, 'deliveries': deliveries})

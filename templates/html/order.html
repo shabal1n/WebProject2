@@ -22,20 +22,12 @@
                         </div>
 
                         <div class="counter" style="margin-left: 5%">
-                            <input type="number" name="Quantity" id="counter_value_first" value={{ item.count }} min="1"
-                                   onchange="location.href='/change_count/'+ {{ product.id }} + '/'
-                                           + parseInt(document.getElementById('counter_value_first').value);">
+                            <p>{{ item.count }}</p>
                         </div>
 
                         <div class="basket_price" style="margin-left: 8%">
                             <p id="price_value_first">One item: {{ product.price }}</p>
                             <p>KZT</p>
-                        </div>
-
-                        <div class="cross" style="margin-left: auto; margin-right: 5%">
-                            <a href={% url 'delete_view' product.id %}>
-                                <i class="fas fa-trash" onclick="hideItems('first')"></i>
-                            </a>
                         </div>
                     </div>
                 {% endwith %}
@@ -47,8 +39,36 @@
                 <p>KZT</p>
             </div>
 
-            <div style="text-align: center; margin-bottom: 3%;">
-                <button class="btn btn-outline-dark" id="proceed" onclick="location.href='{% url 'order' %}'">Proceed to payment</button>
+            <div class="payment" style="display: flex; flex-wrap: wrap; text-align: left; margin-left: 5%">
+                <div style="margin-bottom: 6%; margin-inline: 6%">
+                    <p>Choose date of shipping:</p>
+                    <input type="date" id="shippingDate">
+                </div>
+
+                <div style="margin-inline: 6%; text-align: left; width: fit-content; margin-bottom: 6%">
+                    <p>Method of delivery:</p>
+                    {% for foo in deliveries %}
+                        <input type="radio" id="no_contact" name="group" value={{ foo }}>
+                        <label for="no_contact" class="radio_type">{{ foo }}</label>
+                        <br>
+                    {% endfor %}
+                </div>
+
+                <div style="margin-bottom: 6%; margin-inline: 6%">
+                    <p>Insert your address:</p>
+                    <input type="text" placeholder="Address">
+                </div>
+            </div>
+
+            <div style="display: block; text-align: center">
+                <div style="margin-bottom: 2%;">
+                    <input type="checkbox" name="Terms" id="terms">
+                    <label for="terms">Agree to the terms and conditions</label>
+                </div>
+
+                <div style="margin-bottom: 3%">
+                    <button>Order</button>
+                </div>
             </div>
         {% else %}
             <h1 style="text-align: center; margin-block: 5%">Your cart is empty!</h1>
