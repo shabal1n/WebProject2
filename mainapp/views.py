@@ -160,12 +160,23 @@ def change_count(request, item_id, count):
 
 def make_order(request):
     cart_current = Basket.objects.get(user=request.user)
-    if not Order.objects.filter(user=request.user, basket=cart_current).exists():
-        order_this = Order.objects.create(user=request.user, basket=cart_current)
-        order_this.save()
+    if request.method == 'POST':
+        delivery = request.POST['delivery']
+        city = request.POST['city']
+        address = request.POST['address']
+        curr_order = Order.objects.get(user=request.user, basket=cart_current)
+        curr_order.city = city
+        curr_order.address = address
+        curr_order.delivery = DeliveryCompany.objects.get(title=delivery)
+        curr_order.save()
+        for b_item in BasketItem.objects.filter(cart=Basket.objects.get(user=request.user)).all():
+            b_item.delete()
+        return redirect('cart')
     else:
-        order_this = Order.objects.get(user=request.user, basket=cart_current)
-    items = BasketItem.objects.filter(cart=cart_current).all()
-    total = cart_current.total()
-    deliveries = DeliveryCompany.objects.all()
-    return render(request, 'order.html', {'items': items, 'total': total, 'deliveries': deliveries})
+        if not Order.objects.filter(user=request.user, basket=cart_current).exists():
+            order_this = Order.objects.create(user=request.user, basket=cart_current)
+            order_this.save()
+        items = BasketItem.objects.filter(cart=cart_current).all()
+        total = cart_current.total()
+        deliveries = DeliveryCompany.objects.all()
+        return render(request, 'order.html', {'items': items, 'total': total, 'deliveries': deliveries})

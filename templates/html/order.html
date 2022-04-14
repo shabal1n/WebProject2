@@ -2,8 +2,8 @@
 {% load static %}
 {% block extrablock %}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <link rel="stylesheet" href="{% static 'style/cart_style.css' %}">
-    <script type="text/javascript" src="{% static 'script/cart_script.js' %}">window.alert("Connected")</script>
+    <link rel="stylesheet" href={% static 'style/cart_style.css' %}>
+    <script type="text/javascript" src={% static 'script/cart_script.js' %}></script>
 {% endblock %}
 {% block title %}l'encore {{ request.path|slice:"1:" }}{% endblock %}
 {% block content %}
@@ -38,40 +38,53 @@
                 <p style="margin-right: 1%;" id="price">{{ total }}</p>
                 <p>KZT</p>
             </div>
+            <form action="order" method="POST" style="padding-inline: 20%">
+                <div style="display: flex; flex-wrap: wrap; text-align: center; margin-inline: auto">
+                    {% csrf_token %}
+                    <div style="margin-bottom: 6%; margin-inline: 10%">
+                        <p>Choose date of shipping:</p>
+                        <input type="date" id="shippingDate" onload="dateBound()">
+                    </div>
 
-            <div class="payment" style="display: flex; flex-wrap: wrap; text-align: left; margin-left: 5%">
-                <div style="margin-bottom: 6%; margin-inline: 6%">
-                    <p>Choose date of shipping:</p>
-                    <input type="date" id="shippingDate">
+                    <div style="margin-inline: 10%; text-align: left; width: fit-content; margin-bottom: 6%">
+                        <p>Method of delivery:</p>
+                        <select name="delivery" style="width: max-content">
+                            {% for foo in deliveries %}
+                                <option value={{ foo }}>{{ foo }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div style="margin-bottom: 6%; margin-inline: 10%">
+                        <p>City:</p>
+                        <select name="city">
+                            <option value="Almaty">Almaty</option>
+                            <option value="Nur-Sultan">Nur-Sultan</option>
+                            <option value="Shymkent">Shymkent</option>
+                            <option value="Aktobe">Aktobe</option>
+                            <option value="Atyrau">Atyrau</option>
+                            <option value="Taraz">Taraz</option>
+                            <option value="Karaganda">Karaganda</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-bottom: 6%; margin-inline: 10%">
+                        <p>Your address:</p>
+                        <input type="text" placeholder="Address" name="address">
+                    </div>
                 </div>
 
-                <div style="margin-inline: 6%; text-align: left; width: fit-content; margin-bottom: 6%">
-                    <p>Method of delivery:</p>
-                    {% for foo in deliveries %}
-                        <input type="radio" id="no_contact" name="group" value={{ foo }}>
-                        <label for="no_contact" class="radio_type">{{ foo }}</label>
-                        <br>
-                    {% endfor %}
-                </div>
+                <div style="display: block; text-align: center">
+                    <div style="margin-bottom: 2%;">
+                        <input type="checkbox" name="Terms" id="terms">
+                        <label for="terms">Agree to the terms and conditions</label>
+                    </div>
 
-                <div style="margin-bottom: 6%; margin-inline: 6%">
-                    <p>Insert your address:</p>
-                    <input type="text" placeholder="Address">
+                    <div style="margin-bottom: 3%">
+                        <button>Order</button>
+                    </div>
                 </div>
-            </div>
-
-            <div style="display: block; text-align: center">
-                <div style="margin-bottom: 2%;">
-                    <input type="checkbox" name="Terms" id="terms">
-                    <label for="terms">Agree to the terms and conditions</label>
-                </div>
-
-                <div style="margin-bottom: 3%">
-                    <button>Order</button>
-                </div>
-            </div>
-        {% else %}
-            <h1 style="text-align: center; margin-block: 5%">Your cart is empty!</h1>
+            </form>
         {% endif %}
     </div>
 {% endblock %}

@@ -153,8 +153,5 @@ body {
 .payment {
   text-align: center;
   justify-content: center;
-  display: block;
   margin-bottom: 3%;
-  width: 50%;
-  border: 1px solid red;
 }
