@@ -23,7 +23,8 @@
 
                         <div class="counter" style="margin-left: 5%">
                             <input type="number" name="Quantity" id="counter_value_first" value={{ item.count }} min="1"
-                                   onchange="location.href='/change_count/'+ {{ product.id }};">
+                                   onchange="location.href='/change_count/'+ {{ product.id }} + '/'
+                                           + parseInt(document.getElementById('counter_value_first').value);">
                         </div>
 
                         <div class="basket_price" style="margin-left: 8%">
@@ -47,38 +48,7 @@
             </div>
 
             <div style="text-align: center; margin-bottom: 3%;">
-                <button class="btn btn-outline-dark" id="proceed">Proceed to payment</button>
-            </div>
-
-            <div class="hidden">
-                <div style="margin-bottom: 1%;">
-                    <p>Choose date of shipping:</p>
-                    <input type="date" id="shippingDate">
-                </div>
-
-                <div style="margin-bottom: 1%; text-align: center;">
-                    <p>Method of delivery:</p>
-                    <input type="radio" id="no_contact" name="group" value="Courier">
-                    <label for="no_contact" class="radio_type">Courier delivery</label>
-                    <br>
-                    <input type="radio" id="pick" name="group" value="Pick up">
-                    <label for="pick" class="radio_type">Pick up from post</label>
-                    <br>
-                </div>
-
-                <div>
-                    <p>Insert your address:</p>
-                    <input type="text" placeholder="Address">
-                </div>
-
-                <div style="margin-top: 1%;">
-                    <input type="checkbox" name="Terms" id="terms">
-                    <label for="terms">Agree to the terms and conditions</label>
-                </div>
-
-                <div style="margin-top: 1%;">
-                    <button>Order</button>
-                </div>
+                <button class="btn btn-outline-dark" id="proceed" onclick="location.href='{% url 'order' %}'">Proceed to payment</button>
             </div>
         {% else %}
             <h1 style="text-align: center; margin-block: 5%">Your cart is empty!</h1>

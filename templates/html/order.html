@@ -1,0 +1,90 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block extrablock %}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href={% static 'style/cart_style.css' %}>
+    <script type="text/javascript" src={% static 'script/cart_script.js' %}></script>
+{% endblock %}
+{% block title %}l'encore {{ request.path|slice:"1:" }}{% endblock %}
+{% block content %}
+
+    <div id="center_part">
+        {% if items.first != None %}
+            {% for item in items %}
+                {% with product=item.item %}
+                    <div class="basket_element" id="item_first">
+                        <div class="basket_img">
+                            <img src="{% static 'img/upload/' %}{{ product.image|slice:'7:' }}" alt="Bag">
+                        </div>
+
+                        <div class="basket_text" style="margin-left: 3%">
+                            <p>{{ product.brand }} {{ product.name }}</p>
+                        </div>
+
+                        <div class="counter" style="margin-left: 5%">
+                            <p>{{ item.count }}</p>
+                        </div>
+
+                        <div class="basket_price" style="margin-left: 8%">
+                            <p id="price_value_first">One item: {{ product.price }}</p>
+                            <p>KZT</p>
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endfor %}
+
+            <div id="total_overall">
+                <p style="margin-right: 2%; margin-left: auto;">Total:</p>
+                <p style="margin-right: 1%;" id="price">{{ total }}</p>
+                <p>KZT</p>
+            </div>
+            <form action="order" method="POST" style="padding-inline: 20%">
+                <div style="display: flex; flex-wrap: wrap; text-align: center; margin-inline: auto">
+                    {% csrf_token %}
+                    <div style="margin-bottom: 6%; margin-inline: 10%">
+                        <p>Choose date of shipping:</p>
+                        <input type="date" id="shippingDate" onload="dateBound()">
+                    </div>
+
+                    <div style="margin-inline: 10%; text-align: left; width: fit-content; margin-bottom: 6%">
+                        <p>Method of delivery:</p>
+                        <select name="delivery" style="width: max-content">
+                            {% for foo in deliveries %}
+                                <option value={{ foo }}>{{ foo }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div style="margin-bottom: 6%; margin-inline: 10%">
+                        <p>City:</p>
+                        <select name="city">
+                            <option value="Almaty">Almaty</option>
+                            <option value="Nur-Sultan">Nur-Sultan</option>
+                            <option value="Shymkent">Shymkent</option>
+                            <option value="Aktobe">Aktobe</option>
+                            <option value="Atyrau">Atyrau</option>
+                            <option value="Taraz">Taraz</option>
+                            <option value="Karaganda">Karaganda</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-bottom: 6%; margin-inline: 10%">
+                        <p>Your address:</p>
+                        <input type="text" placeholder="Address" name="address">
+                    </div>
+                </div>
+
+                <div style="display: block; text-align: center">
+                    <div style="margin-bottom: 2%;">
+                        <input type="checkbox" name="Terms" id="terms">
+                        <label for="terms">Agree to the terms and conditions</label>
+                    </div>
+
+                    <div style="margin-bottom: 3%">
+                        <button>Order</button>
+                    </div>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}
