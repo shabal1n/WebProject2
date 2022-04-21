@@ -3,6 +3,8 @@
 {% block title %}l'encore{% endblock %}
 {% block content %}
     <link rel="stylesheet" href="{% static 'style/main_style.css' %}">
+    <link href="http://fonts.cdnfonts.com/css/simple-brush-script" rel="stylesheet">
+                
     <div id="main_part">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner" style="height: 100%;">
@@ -74,10 +76,15 @@
         <img src="{% static 'img/main/kids.webp' %}" alt="Accessories" style="max-height: 100%; max-width: 100%;">
         <h3>KIDS</h3>
       </div>
-    </div>
+    </div> 
     <hr style="width: 92%; background-color: rgb(27, 27, 27);">
 
-    <h1 style="text-align: center; font-family: 'Gwendolyn', cursive;" id="sign">" With love to our clients"</h1>
+    <div class="text-area">
+      <h1 class= "typing" style="text-align: center; font-family: 'Simple Brush Script', sans-serif;" id="typing"></h1>
+    </div>
+
   </div>
+
+  <script src="./static/script/typewriter.js"></script>
   <br>
 {% endblock %}

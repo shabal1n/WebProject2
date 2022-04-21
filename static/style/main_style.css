@@ -1,3 +1,8 @@
+:root {
+    --background-color: #3e3f4e;
+    --gradient: linear-gradient( 244deg, #9b70c6 2%, #8bfbf5 49%, #a0faa6 71%, #f1fa94 100%);
+}
+
 body {
     font-family: 'Lato', sans-serif;
     height: fit-content;
@@ -16,8 +21,8 @@ body {
 #header {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.692), transparent 50%);
     height: fit-content;
-    text-align: center; 
-    padding-bottom: 1%;  
+    text-align: center;
+    padding-bottom: 1%;
     position: fixed;
     z-index: 9;
     width: 100%;
@@ -36,15 +41,15 @@ body {
 
 .button_main {
     height: fit-content;
-    color: rgb(229,223,218);
-    border: 0px ;
+    color: rgb(229, 223, 218);
+    border: 0px;
     margin-inline: 1%;
     font-size: large;
     font-weight: 500;
 }
 
 #main_part {
-    background-color: rgb(229,223,218);
+    background-color: rgb(229, 223, 218);
     width: 96%;
     margin-top: 2%;
     padding-block: 3%;
@@ -61,7 +66,7 @@ body {
 }
 
 #cards {
-    width: 92%; 
+    width: 92%;
     margin-left: auto;
     margin-right: auto;
     height: 35%;
@@ -70,8 +75,8 @@ body {
 }
 
 .single_card {
-    height: 25%; 
-    width: 40%; 
+    height: 25%;
+    width: 40%;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -81,16 +86,52 @@ body {
 #bottom_part {
     background-color: rgb(27, 27, 27);
     height: fit-content;
-    color: rgb(229,223,218);
+    color: rgb(229, 223, 218);
     font-family: 'Lato', sans-serif;
     display: flex;
     flex-wrap: wrap;
 }
 
+.typing {
+    font-family: monospace;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 4rem;
+    position: relative;
+}
+
+.typing::after {
+    content: "";
+    position: absolute;
+    height: 90%;
+    width: 2px;
+    background-color: #3e3f4e;
+    color: black;
+    padding: 1px;
+    left: 100%;
+    animation: blink 700ms infinite ease;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+        background-color: #9b70c6;
+    }
+    50% {
+        opacity: 1;
+        background-color: #8bfbf5;
+    }
+    100% {
+        opacity: 0;
+        background-color: #9b70c6;
+    }
+}
+
 .bottom_container {
-    margin-top: 3%; 
-    margin-bottom: 3%; 
-    margin-inline: 5%; 
-    justify-content: left; 
+    margin-top: 3%;
+    margin-bottom: 3%;
+    margin-inline: 5%;
+    justify-content: left;
     text-align: left;
 }
