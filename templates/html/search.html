@@ -1,0 +1,19 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block title %}l'encore {{ request.path|slice:"1:" }}{% endblock %}
+{% block content %}
+     <link rel="stylesheet" href="{% static 'style/items_style.css' %}">
+    <h1 style="text-align: center; margin-top: 50px;">Search: {{ request.path|slice:"1:"|upper }}</h1>
+    <div class="kurt">
+        {% for item in items %}
+            <div class="tsort">
+                <a href="{% url 'product' item.id %}">
+                    <img src="{% static 'img/upload/' %}{{ item.image }}">
+                    <h3 style="color: #330867;">{{ item.name }}</h3>
+                    <h6 style="color: #330867;">{{ item.brand }}</h6>
+                </a>
+                <h5 style="color: #330867;"> {{ item.price }} KZT</h5>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

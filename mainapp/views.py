@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib import messages
-from .models import Items, ProductReview, Basket, BasketItem, Order, DeliveryCompany
+from .models import Items, ProductReview, Basket, BasketItem, Order, DeliveryCompany, Brands
 from .forms import ReviewAdd
+from django.db.models import Q
 
 
 def main(request):
@@ -180,3 +181,8 @@ def make_order(request):
         total = cart_current.total()
         deliveries = DeliveryCompany.objects.all()
         return render(request, 'order.html', {'items': items, 'total': total, 'deliveries': deliveries})
+
+
+def search(request, name):
+    items = Items.objects.filter(Q(name__icontains=name) | Q(brand__title__icontains=name)).all()
+    return render(request, 'search.html', {'items': items})
