@@ -1,0 +1,125 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block title %}l'encore {{ request.path|slice:"1:" }}{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static './style/items_style.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
+<link rel="stylesheet" href="/static/style/about_us.css">
+
+<section id="news" class="py-5">
+    <div class="container text-center mt-5 py-5" style="margin-bottom: -80px;">
+        <h3 style="margin-top: -80px;">l'éncore always tryes to make you happy </h3>
+        <hr>
+        <p style="font-weight: 500; margin-bottom: 30px;">Read about our innovations </p>
+    </div>
+</section>
+
+<!-- news slider ketet -->
+<section id="news-slider" class="mb-5">
+    <div class="owl-carousel owl-theme">
+        <div class="slide slide-1">
+            <div class="slide-content">
+                <h1>HOME ENTERTAINMENT</h1>
+                <p>YOUR HOME IS YOUR PLAYING FIELD AND YOU ARE THE MAIN PLAYER. FEEL ADVENTUROUS AND CREATIVE.EACH CORNER OF THE HOUSE IGNITES YOUR IMAGINATION AND YOU CAN BE WHOEVER YOU WANT TO BE</p>
+                <form action="newsPost.html"><button id="newsBut">More</button></form>
+                
+            </div>
+        </div>
+        <div class="slide slide-2">
+            <div class="slide-content">
+                <h1>NOSTALGIA DELIGHT</h1>
+                <p>THE ETERNAL VACATION PORTRAIT. ABOUT SUMMER SIMPLICITY
+                    AND FOREVER FRESHNESS. Be kind and Beautifull with our new design! Feel the love and calm</p>
+                    <form action="newsPost2.html"><button id="newsBut">More</button></form>
+            </div>
+        </div>
+        <div class="slide slide-3">
+            <div class="slide-content">
+                <h1>LA PLAYA MOMENT SEASON</h1>
+                <p>THE MEDITERRANEAN DELIGHT BRINGS REFRESHING VIBES. A NATURAL YET VIBRANT COLOR PALETTE BECOMES THE PROTAGONIST OF ALL THESE OUTDOOR OUTFITS, WHERE INNER ATTITUDE WILL PLAY THE MAIN ROLE</p>
+                <form action="newsPost3.html"><button id="newsBut">More</button></form>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="news" class="py-5">
+    <div class="container text-center mt-5 py-5" style="margin-bottom:-60px;">
+        <h3 style="margin-top:-80px;">Follow our news and keep abreast of all events</h3>
+        <hr>
+        <p style="font-weight: 500; margin-bottom: -80px;">Everything with love </p>
+    </div>
+</section>
+
+
+
+<h1 style="text-align: center; margin-top: 50px;margin-bottom: 50px;">Contacts</h1>
+
+<div class="container">
+
+<div class="row">
+  <div class="col-sm">
+    <img src="/static/img/contacts/adam_9.jpg" alt="">
+  </div>
+  <div class="col-sm">
+    <h4>Name: Alisa Jeorje</h4>
+    <h4>Position: Head of the first department</h4>
+    <h5>Responsible person for the allocation of resources and the budget of the company, as well as responsible for
+      the redistribution</h5>
+    <p>Email: Herrington@gmail.com <br> Phone: + 7 (777) 111-22-33</p>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm">
+    <img src="/static/img/contacts/adam_13.jpg" alt="">
+  </div>
+  <div class="col-sm">
+    <h4>Name: Emma Stone</h4>
+    <h4>Position: Deputy Head</h4>
+    <h5>The person responsible for receiving the guests of his boss. Engaged in sorting databases.</h5>
+    <p>Email: Stone@gmail.com <br> Phone: + 7 (777) 111-22-34</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm">
+    <img src="/static/img/contacts/adam_14.jpg" alt="">
+  </div>
+  <div class="col-sm">
+    <h4>Name: Jack Cardiff</h4>
+    <h4>Position: Web Developer</h4>
+    <h5>The person who developed this beautiful website that you are now seeing.</h5>
+    <p>Email: Cardiff@gmail.com <br> Phone: + 7 (777) 111-22-35</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm">
+    <img src="/static/img/contacts/adam_9.jpg" alt="">
+  </div>
+  <div class="col-sm">
+    <h4>Name: Christina Bezos</h4>
+    <h4>Position: Marketer and Consultantt</h4>
+    <h5>Increasing the number of sales and serving people of particular importance</h5>
+    <p>Email: Christina@gmail.com <br> Phone: + 7 (777) 111-22-36</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm">
+    <img src="/static/img/contacts/adam_15.jpg" alt="">
+  </div>
+  <div class="col-sm">
+    <h4>Name: Gordon Ramzi</h4>
+    <h4>Position: Administrator of the first store</h4>
+    <h5>Responsible for the staff and the work of the most important department for the company</h5>
+    <p>Email: Ramzi@gmail.com <br> Phone: + 7 (777) 111-22-37</p>
+  </div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="/static/script/carousel.js"></script>
+<script type="text/javascript" src="/static/script/contacts_script.js"></script>
+<script src="/static/script/menu.js" ></script>
+{% endblock %}

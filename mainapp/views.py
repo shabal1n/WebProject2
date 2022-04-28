@@ -186,3 +186,7 @@ def make_order(request):
 def search(request, name):
     items = Items.objects.filter(Q(name__icontains=name) | Q(brand__title__icontains=name)).all()
     return render(request, 'search.html', {'items': items})
+
+
+def aboutUs(request):
+    return render(request, 'aboutUs.html')

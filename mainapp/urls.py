@@ -17,5 +17,6 @@ urlpatterns = [
     path('save_review/<int:id>', views.save_review, name='save_review'),
     path('change_count/<int:item_id>/<int:count>', views.change_count, name='change_count'),
     path('order', views.make_order, name='order'),
-    path('search/<str:name>', views.search, name='search')
+    path('search/<str:name>', views.search, name='search'),
+    path('aboutUs', views.aboutUs, name='aboutUs')
 ]

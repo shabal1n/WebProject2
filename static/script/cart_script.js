@@ -30,15 +30,14 @@ function hideItems(number) {
 //   $('.hidden').css('display', 'block');
 // });
 
-function dateBound() {
-  window.alert("Date")
-  let today = new Date();
-  const dd = String(today.getDate()).padStart(2, '0');
-  const mm = String(today.getMonth() + 1).padStart(2, '0');
-  const yyyy = today.getFullYear();
-
-  today = yyyy + "-" + mm + "-" + dd;
-  document.getElementById('shippingDate').setAttribute("min", today.toString());
-}
-
+// function dateBound() {
+//   let today = new Date();
+//   const dd = String(today.getDate()).padStart(2, '0');
+//   const mm = String(today.getMonth() + 1).padStart(2, '0');
+//   const yyyy = today.getFullYear();
+//
+//   today = yyyy + "-" + mm + "-" + dd;
+//   document.getElementById('shippingDate').min = today;
+// }
+//
 // document.onload(dateBound());
