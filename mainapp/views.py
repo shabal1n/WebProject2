@@ -5,6 +5,7 @@ from django.contrib import messages
 from .models import Items, ProductReview, Basket, BasketItem, Order, DeliveryCompany, Brands
 from .forms import ReviewAdd
 from django.db.models import Q
+import re
 
 
 def main(request):
@@ -12,27 +13,42 @@ def main(request):
 
 
 def men(request):
-    items = Items.objects.select_related().filter(category_id=1)
+    if Items.order:
+        items = Items.objects.select_related().filter(category_id=1).order_by(*Items.order)
+    else:
+        items = Items.objects.select_related().filter(category_id=1)
     return render(request, 'items.html', {'items': items})
 
 
 def women(request):
-    items = Items.objects.select_related().filter(category_id=2)
+    if Items.order:
+        items = Items.objects.select_related().filter(category_id=2).order_by(*Items.order)
+    else:
+        items = Items.objects.select_related().filter(category_id=2)
     return render(request, 'items.html', {'items': items})
 
 
 def kids(request):
-    items = Items.objects.select_related().filter(category_id=3)
+    if Items.order:
+        items = Items.objects.select_related().filter(category_id=3).order_by(*Items.order)
+    else:
+        items = Items.objects.select_related().filter(category_id=3)
     return render(request, 'items.html', {'items': items})
 
 
 def accessories(request):
-    items = Items.objects.select_related().filter(category_id=4)
+    if Items.order:
+        items = Items.objects.select_related().filter(category_id=4).order_by(*Items.order)
+    else:
+        items = Items.objects.select_related().filter(category_id=4)
     return render(request, 'items.html', {'items': items})
 
 
 def sneakers(request):
-    items = Items.objects.select_related().filter(category_id=5)
+    if Items.order:
+        items = Items.objects.select_related().filter(category_id=5).order_by(*Items.order)
+    else:
+        items = Items.objects.select_related().filter(category_id=5)
     return render(request, 'items.html', {'items': items})
 
 
@@ -190,3 +206,8 @@ def search(request, name):
 
 def aboutUs(request):
     return render(request, 'aboutUs.html')
+
+
+def change_sort(request, sort):
+    Items.order = [sort]
+    return redirect(request.META.get('HTTP_REFERER'))

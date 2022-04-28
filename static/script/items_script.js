@@ -21,7 +21,7 @@ function scrollFunction() {
 
 function change_img() {
     const allImages = document.getElementsByTagName('img');
-    for(let i = 0; i < allImages.length; i++) {
+    for (let i = 0; i < allImages.length; i++) {
         const imgSource = allImages[i].src;
         allImages[i].addEventListener("mouseleave", function (event) {
             allImages[i].src = imgSource.slice(0, -6) + ".jpg";

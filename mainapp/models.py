@@ -51,6 +51,7 @@ class Items(models.Model):
     size = models.ManyToManyField(Sizes)
     stock = models.IntegerField(verbose_name='STOCK')
     description = models.TextField(blank=True)
+    order = []
 
     def __str__(self):
         return f"{self.name}, {self.price} KZT"

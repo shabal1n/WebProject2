@@ -3,7 +3,19 @@
 {% block title %}l'encore {{ request.path|slice:"1:" }}{% endblock %}
 {% block content %}
     <link rel="stylesheet" href="{% static 'style/items_style.css' %}">
-    <h1 style="text-align: center; margin-top: 50px;">{{ request.path|slice:"1:"|upper }}</h1>
+    <script src="{% static 'script/items_script.js' %}"></script>
+    <div>
+        <h1 style="text-align: center; margin-top: 50px;">{{ request.path|slice:"1:"|upper }}</h1>
+        <div style="width:200px; margin-left: 10%">
+            <select id="sort" onchange="location.href='changesort/' + document.getElementById('sort').value">
+                <option value="" disabled selected>Sort by</option>
+                <option value="name">A->Z</option>
+                <option value="-name">Z->A</option>
+                <option value="price">Price ascending</option>
+                <option value="-price">Price descending</option>
+            </select>
+        </div>
+    </div>
     <div class="kurt">
         {% for item in items %}
             <div class="tsort">
