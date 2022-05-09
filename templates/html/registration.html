@@ -12,19 +12,29 @@
     <p> It takes less than three minutes</p>
     <form class="inputs" method="POST" action="registration">
         {% csrf_token %}
-        <input type="text" placeholder="Username" name="username">
+        <label>
+            <input type="text" placeholder="Username" name="username">
+        </label>
         <br>
-        <input type="email" placeholder="E-mail" name="email">
+        <label>
+            <input type="email" placeholder="E-mail" name="email">
+        </label>
         <br>
-        <input type="password" placeholder="Password" name="password1">
+        <label>
+            <input type="password" placeholder="Password" name="password1">
+        </label>
         <br>
-        <input type="password" placeholder="Repeat password" name="password2">
+        <label>
+            <input type="password" placeholder="Repeat password" name="password2">
+        </label>
 
         <br><br>
 
         <div class="remember-me--forget-password">
             <div style="width: 100%">
-                <input type="checkbox" name="item"/>
+                <label>
+                    <input type="checkbox" name="item"/>
+                </label>
                 <span>I'm not a robot</span>
             </div>
         </div>

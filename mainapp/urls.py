@@ -19,5 +19,9 @@ urlpatterns = [
     path('order', views.make_order, name='order'),
     path('search/<str:name>', views.search, name='search'),
     path('aboutUs', views.aboutUs, name='aboutUs'),
-    path('changesort/<str:sort>', views.change_sort, name='changesort')
+    path('changesort/<str:sort>', views.change_sort, name='changesort'),
+    path('newsPage', views.newsPage, name='newsPage'),
+    path('newsPage2', views.newsPage2, name='newsPage2'),
+    path('newsPage3', views.newsPage3, name='newsPage3'),
+    path('contact/', views.contact, name='contactUs')
 ]

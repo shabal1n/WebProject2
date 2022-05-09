@@ -1,12 +1,9 @@
 from django.contrib import admin
 from .models import *
 
-from django.contrib import admin
-from .models import *
-
 
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'category', 'image', 'stock', 'price')
+    list_display = ('id', 'name', 'category', 'subcategory', 'image', 'stock', 'price')
 
 
 class SizeAdmin(admin.ModelAdmin):
@@ -14,6 +11,10 @@ class SizeAdmin(admin.ModelAdmin):
 
 
 class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title')
+
+
+class SubcategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')
 
 
@@ -51,3 +52,5 @@ admin.site.register(DeliveryCompany)
 #     list_display=('user','product','review_text','get_review_rating')
 
 admin.site.register(ProductReview, ProductReviewAdmin)
+
+admin.site.register(Subcategory, SubcategoryAdmin)

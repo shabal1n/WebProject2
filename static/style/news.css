@@ -1,0 +1,195 @@
+
+body {
+    font-family: 'Lato', sans-serif;
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    height: fit-content;
+    font-weight: 100;
+}
+
+.leftside {
+    float:left;
+    width: 75%;
+
+}
+
+.rightside {
+    float: left;
+    width: 25%;
+    padding-left: 45px;
+}
+
+ #mainImg {
+    width: 770px;
+    height: 433px;
+    padding: 20px;
+    margin-left: -20px;
+}
+#mainImg2 {
+    width: 650px;
+    height: 800px;
+    margin-left: 2px;
+}
+#mainImg3 {
+    width: 650px;
+    height: 800px;
+    margin-left: 2px;
+}
+
+.card {
+    background-color: white;
+    padding: 50px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.card h2{
+    margin-bottom: 20px;
+    font-size: 40px;
+    font-weight: 600;
+}
+.card h5{
+    margin-bottom: 10px;
+    font-weight: normal;
+    font-size: 15px;
+}
+.card p{
+    text-transform:lowercase;
+    margin-top: 25px;
+}
+.row::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#idishka {
+    font-family: Arial, sans-serif;
+    padding: 2%;
+    background: #f1f1f1;
+}
+
+#guci {
+    max-width: 300px;
+    text-align: center;
+    background-color: white;
+    padding: 25px;
+    margin-top: 40px;
+}
+
+#guci .title {
+    color: grey;
+    font-size: 15px;
+    margin-top: 10px;
+}
+#guci h1{
+    font-size: 17px;
+}
+#guci p{
+    margin-top: 10px;
+}
+#guci h3{
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+#guci button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: rgb(103, 211, 78);
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+}
+
+
+#guci button:hover {
+   background-color: rgb(161, 227, 134);
+    animation: shake 0.5s;
+    animation-iteration-count: 3;
+}
+
+#guci .card {
+    text-align: center;
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+
+
+#btnAnim {
+    border-radius: 20px;
+    background-color: rgb(133, 222, 86);
+    color: white;
+    border: none;
+    text-align: center;
+    font-size: 15px;
+    transition: all 0.5s;
+    cursor: pointer;
+    width: 170px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+#btnAnim span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+#btnAnim #spanRight:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+#btnAnim #spanLeft::after {
+    content: '\00ab';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: -20px;
+    transition: 0.5s;
+}
+
+#btnAnim:hover #spanRight {
+    padding-right: 25px;
+    
+}
+#btnAnim:hover{
+    background-color: rgb(163, 234, 132);
+}
+
+#btnAnim:hover #spanLeft {
+    padding-left: 25px;
+}
+
+#btnAnim:hover #spanRight:after {
+    opacity: 1;
+    right: 0;
+}
+
+#btnAnim:hover #spanLeft::after {
+    opacity: 1;
+    left: 0;
+}
+

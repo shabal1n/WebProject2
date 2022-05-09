@@ -3,24 +3,25 @@
 {% block title %}l'encore {{ request.path|slice:"1:" }}{% endblock %}
 {% block content %}
     <link rel="stylesheet" href="{% static 'style/items_style.css' %}">
-    <script src="{% static 'script/items_script.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'style/search-filter.css' %}">
     <div>
         <h1 style="text-align: center; margin-top: 50px;">{{ request.path|slice:"1:"|upper }}</h1>
         <div style="width:200px; margin-left: 10%">
-            <select id="sort" onchange="location.href='changesort/' + document.getElementById('sort').value">
-                <option value="" disabled selected>Sort by</option>
-                <option value="name">A->Z</option>
-                <option value="-name">Z->A</option>
-                <option value="price">Price ascending</option>
-                <option value="-price">Price descending</option>
-            </select>
+            <label for="sort"></label><select id="sort"
+                                              onchange="location.href='changesort/' + document.getElementById('sort').value">
+            <option value="" disabled selected>Sort by</option>
+            <option value="name">A->Z</option>
+            <option value="-name">Z->A</option>
+            <option value="price">Price ascending</option>
+            <option value="-price">Price descending</option>
+        </select>
         </div>
     </div>
     <div class="kurt">
         {% for item in items %}
             <div class="tsort">
                 <a href="{% url 'product' item.id %}">
-                    <img src="{% static 'img/upload/' %}{{ item.image }}">
+                    <img src="{% static 'img/upload/' %}{{ item.image }}" alt="img">
                     <h3 style="color: #330867;">{{ item.name }}</h3>
                     <h6 style="color: #330867;">{{ item.brand }}</h6>
                 </a>

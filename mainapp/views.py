@@ -3,9 +3,10 @@ from django.contrib.auth.models import User, auth
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib import messages
 from .models import Items, ProductReview, Basket, BasketItem, Order, DeliveryCompany, Brands
-from .forms import ReviewAdd
+from .forms import ReviewAdd, ContactForm
 from django.db.models import Q
-import re
+from django.core.mail import send_mail, get_connection
+from django.conf import settings
 
 
 def main(request):
@@ -80,10 +81,13 @@ def product(request, id):
         return HttpResponseRedirect(request.path_info)
     else:
         product = Items.objects.get(id=id)
+        reviews = ProductReview.objects.filter(product=product)
+        if reviews.__len__() > 0:
+            reviews = reviews[0]
         related_products = Items.objects.filter(category=product.category).exclude(id=id)[:3]
         reviewForm = ReviewAdd()
         return render(request, 'product.html',
-                      {'data': product, 'related_products': related_products, 'form': reviewForm})
+                      {'data': product, 'review': reviews, 'related_products': related_products, 'form': reviewForm})
 
 
 def cart(request):
@@ -136,10 +140,7 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            if request.user.is_superuser:
-                return redirect('superuser')
-            else:
-                return redirect('/')
+            return redirect('/')
         else:
             messages.info(request, 'Credentials invalid')
             return redirect('login')
@@ -211,3 +212,44 @@ def aboutUs(request):
 def change_sort(request, sort):
     Items.order = [sort]
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+def aboutUs(request):
+    return render(request, 'aboutUs.html')
+
+
+def newsPage(request):
+    return render(request, 'newsPost.html')
+
+
+def newsPage2(request):
+    return render(request, 'newsPost2.html')
+
+
+def newsPage3(request):
+    return render(request, 'newsPost3.html')
+
+
+def contact(request):
+    submitted = False
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            # assert False
+            con = get_connection('django.core.mail.backends.console.EmailBackend')
+            send_mail(
+                cd['subject'],
+                cd['message'],
+                settings.EMAIL_HOST_USER,
+                ['lil-aisana@mail.ru'],
+                cd.get('email', 'noreply@example.com'),
+                ['lil-aisana@mail.ru'],
+                connection=con
+            )
+            return HttpResponseRedirect('/contact?submitted=True')
+    else:
+        form = ContactForm()
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'contactUs.html', {'form': form, 'item': Items.objects.all(), 'submitted': submitted})

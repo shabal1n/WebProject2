@@ -1,0 +1,50 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block title %}l'encore {{ request.path|slice:"1:" }}{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'style/items_style.css' %}">
+<link rel="stylesheet" href="/static/style/news.css">
+
+
+<section id="idishka">
+
+    <div class="row">
+
+        <div class="leftside">
+
+            <div class="card" >
+            <h2 >HOME ENTERTAINMENT</h2>
+            <h5 >Released date dec 15, 2021</h5>
+            <img id="mainImg"  src="/static/img/newsPost2.jpg">
+            <!-- <div class="someimg" style="height: 400px;"></div>   -->
+            <p >YOUR HOME IS YOUR PLAYING FIELD AND YOU ARE THE MAIN PLAYER. FEEL ADVENTUROUS AND CREATIVE. EACH CORNER OF THE HOUSE IGNITES YOUR IMAGINATION AND YOU CAN BE WHOEVER YOU WANT TO BE NOW NO ONE IS WATCHING. PLAY BOARD GAMES AND LOUD MUSIC, READ A BOOK, GET DRESSED AND UNDRESSED TIME AND AGAIN. IN THIS EDIT, HOME IS THE PLACE WHERE WE FIND OURSELVES AND FUN NEVER ENDS.
+
+                AN ODE TO INDOOR SOLO AMUSEMENT. THE PERFECT STAGE FOR CREATIVE EXPERIMENTATION IS OUR HOME.</p>
+            </div>
+        </div>
+
+        <div class="rightside">
+
+            <div class="card" >
+                <h3 style="text-align: center; font-weight: 600;">RECENT POSTS</h3>
+                <form action="/newsPage3"><button  id="btnAnim"><span id="spanLeft">PREVIOUS</span></button></form>
+                <form action="/newsPage2"><button  id="btnAnim"><span id="spanRight">FOLLOWING </span></button></form>
+                
+
+            </div>
+
+            <div id="guci" class="card">
+                <h3>Related Product</h3>
+                <img src="/static/img/woman/Woman1.jpg" alt="" style="width: 100%;">
+                <h1>LA BAMBA GOLD SET</h1>
+                <p >87.5$ </p>
+                <form action=".\P-Det-htmls\productDetEar1.html"> <p><button>MORE</button></p></form> 
+               
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/static/script/menu.js"></script>
+{% endblock %}

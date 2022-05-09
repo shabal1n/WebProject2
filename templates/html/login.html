@@ -9,7 +9,7 @@
 
     <p>Don't have an account? <a href="http://127.0.0.1:8000/registration">Creat Your Account</a> it takes less than a
         minute</p>
-    <form class="inputs" action="login" method="POST">
+    <form class="inputs" action='login' method="POST">
         {% csrf_token %}
         <input type="text" placeholder="Username" name="username">
         <br>

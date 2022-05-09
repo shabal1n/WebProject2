@@ -1,0 +1,48 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block title %}l'encore {{ request.path|slice:"1:" }}{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static './style/items_style.css' %}">
+<link rel="stylesheet" href="/static/style/news.css">
+
+
+<section id="idishka">
+
+    <div class="row">
+
+        <div class="leftside">
+
+            <div class="card">
+            <h2>NOSTALGIA DELIGHT</h2>
+            <h5>Released date dec 17, 2021</h5>
+            <img id="mainImg2"src="/static/img/newsPost3.jpg">
+            <!-- <div class="someimg" style="height: 400px;"></div>   -->
+            <p>THE ETERNAL VACATION PORTRAIT.ABOUT SUMMER SIMPLICITY
+                AND FOREVER FRESHNESS</p>
+            </div>
+        </div>
+
+        <div class="rightside">
+
+            <div class="card">
+                <h3 style="text-align: center; font-weight: 600;">RECENT POSTS</h3>
+                <form action="/newsPage"><button  id="btnAnim"><span id="spanLeft">previous</span></button></form>
+                <form action="/newsPage3"><button  id="btnAnim"><span id="spanRight">following </span></button></form>
+                
+
+            </div>
+
+            <div id="guci" class="card">
+                <h3>Related Product</h3>
+                <img src="/static/img/woman/Woman6.2.jpg" alt="" style="width: 100%;">
+                <h1>LETTER COAT</h1>
+                <p >68.4$ </p>
+                <form action=".\P-Det-htmls\productDetNeck1.html"> <p><button>More</button></p></form>
+               
+            </div>
+           
+
+        </div>
+        </div>
+
+{% endblock %}

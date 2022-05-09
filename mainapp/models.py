@@ -1,13 +1,19 @@
-from django.db import models
-from django.utils.html import mark_safe
 from django.contrib.auth.models import User
 
 from django.contrib.auth.models import User
 from django.db import models
+
+CATEGORIES = (
+    ("Men", "Men"),
+    ("Women", "Women"),
+    ("Kids", "Kids"),
+    ("Shoes", "Shoes"),
+    ("Kids", "Kids")
+)
 
 
 class Category(models.Model):
-    title = models.CharField(max_length=255, verbose_name='CATEGORY', blank=True, null=True, )
+    title = models.CharField(max_length=255, verbose_name='CATEGORY', choices=CATEGORIES, blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -18,8 +24,20 @@ class Category(models.Model):
         ordering = ['title']
 
 
+class Subcategory(models.Model):
+    title = models.CharField(max_length=255, verbose_name='SUBCATEGORY', blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Subcategory'
+        verbose_name_plural = 'Subcategories'
+        ordering = ['title']
+
+
 class Brands(models.Model):
-    title = models.CharField(max_length=255, verbose_name='NAME', blank=True, null=True, )
+    title = models.CharField(max_length=255, verbose_name='NAME', blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -31,7 +49,7 @@ class Brands(models.Model):
 
 
 class Sizes(models.Model):
-    title = models.CharField(max_length=255, verbose_name='SIZE', blank=True, null=True, )
+    title = models.CharField(max_length=255, verbose_name='SIZE', blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -46,8 +64,9 @@ class Items(models.Model):
     name = models.TextField(default='')
     brand = models.ForeignKey(Brands, blank=True, null=True, on_delete=models.CASCADE, verbose_name='BRAND')
     category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE, verbose_name='CATEGORY')
+    subcategory = models.ForeignKey(Subcategory, blank=True, null=True, on_delete=models.CASCADE, verbose_name='SUBCATEGORY')
     price = models.IntegerField(blank=True, null=True, verbose_name='PRICE')
-    image = models.ImageField(null=True, blank=True, )
+    image = models.ImageField(null=True, blank=True)
     size = models.ManyToManyField(Sizes)
     stock = models.IntegerField(verbose_name='STOCK')
     description = models.TextField(blank=True)

@@ -1,0 +1,46 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block title %}l'encore {{ request.path|slice:"1:" }}{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static './style/items_style.css' %}">
+<link rel="stylesheet" href="/static/style/news.css">
+
+
+<section id="idishka">
+
+    <div class="row">
+
+        <div class="leftside">
+
+            <div class="card">
+            <h2>LA PLAYA MOMENT SEASON</h2>
+            <h5>Released date dec 18, 2021</h5>
+            <img id="mainImg3"src="/static/img/newsPost4.jpg">
+            <!-- <div class="someimg" style="height: 400px;"></div>   -->
+            <p>THE MEDITERRANEAN DELIGHT BRINGS REFRESHING VIBES. A NATURAL YET VIBRANT COLOR PALETTE BECOMES THE PROTAGONIST OF ALL THESE OUTDOOR OUTFITS, WHERE INNER ATTITUDE WILL PLAY THE MAIN ROLE AND JEWELRY WILL DO THE REST. SALT AND LOVE FLOATING IN THE AIR, OUR SOUL LOOKS FOR GLIMMERING DESTINATIONS, SEASIDE SETS WHERE NOTHING ELSE BUT WHO YOU SHARE THESE MOMENTS WITH MATTERS.</p>
+            </div>
+        </div>
+
+        <div class="rightside">
+
+            <div class="card">
+                <h3 style="text-align: center; font-weight: 600;">RECENT POSTS</h3>
+                <form action="/newsPage2"><button id="btnAnim"><span id="spanLeft">previous</span></button></form>
+                <form action="/newsPage3"><button  id="btnAnim"><span id="spanRight">following </span></button></form>
+                
+
+            </div>
+
+            <div id="guci" class="card">
+                <h3>Related Product</h3>
+                <img src="/static/img/acessories/louis-vuitton-2bag.jpg" alt="" style="width: 100%;">
+                <h1>YELLOW GOLD BAG</h1>
+                <p >995$ </p>
+                <form action=".\P-Det-htmls\productDetEar3.html"> <p><button>More</button></p></form>
+               
+            </div>
+
+       </div>
+       </div>
+
+{% endblock %}

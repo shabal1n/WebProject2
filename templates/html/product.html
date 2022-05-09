@@ -2,12 +2,11 @@
 {% load static %}
 {% block title %}l'encore {{ request.path|slice:"1:" }}{% endblock %}
 {% block content %}
-    <link rel="stylesheet" href="{% static './style/items_style.css' %}">
-    <link rel="stylesheet" href="{% static './style/product.css' %}">
+    <link rel="stylesheet" href="{% static 'style/items_style.css' %}">
+    <link rel="stylesheet" href="{% static 'style/product.css' %}">
 
 
-
-    <section class="section product-detail">
+    <div class="section product-detail" style="height: 800px">
         <div class="details container">
             <div class="left image-container">
                 <div class="main">
@@ -23,12 +22,18 @@
                 <form>
                     <div>
                         <select id="size_selector">
-                            <option value="Select Size" selected disabled>
-                                Select Size
-                            </option>
-                            {% for size_i in data.size.all %}
-                                <option value={{ data.size.title }}>{{ data.size.title }}</option>
-                            {% endfor %}
+                            {% if data.size.all|length == 1 %}
+                                <option value="{{ data.size.all|first }}" selected disabled>
+                                    {{ data.size.all|first }}
+                                </option>
+                            {% else %}
+                                <option value="Size" selected disabled>
+                                    Size
+                                </option>
+                                {% for size_i in data.size.all %}
+                                    <option value={{ size_i.title }}>{{ size_i.title }}</option>
+                                {% endfor %}
+                            {% endif %}
                         </select>
                         <span><i class="bx bx-chevron-down"></i></span>
                     </div>
@@ -45,66 +50,66 @@
                 <p></p>
             </div>
         </div>
-    </section>
-    <!-- Reviews -->
-    <div class="col-md-6" style="float:none;margin:auto;margin-top: -50px;margin-bottom: 30px;">
-        <h3 class="my-3">Reviews - 4.5/5 <i class="fa fa-star text-warning"></i>
-            <button data-toggle="modal" data-target="#productReview" type="button"
-                    class="btn btn-warning btn-sm float-right">Add Review
-            </button>
-        </h3>
-        <!-- Product review form -->
-        <div class="modal fade" id="productReview" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add review</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form method="post" id="addForm" action="{% url 'save_review' data.id %}">
-                            {% csrf_token %}
-                            <table class="table table-unbordered">
-                                {{ form.as_table }}
-                                <tr>
-                                    <td colspan="2">
-                                        <button type="submit" class="btn btn-primary"
-                                                style=" margin-left: 270px; margin-right: 15px;">Submit
-                                        </button>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-                                        </button>
-                                    </td>
-                                </tr>
-                            </table>
-                            <p class="ajaxRes"></p>
-                        </form>
+    </div>
+    {% if review %}
+        <!-- Reviews -->
+        <div class="col-md-6" style="float:none;margin:auto;margin-top: -50px;margin-bottom: 30px;">
+            <h3 class="my-3">Reviews - {{ review.review_rating }}/5 <i class="fa fa-star text-warning"></i>
+                <button data-toggle="modal" data-target="#productReview" type="button"
+                        class="btn btn-warning btn-sm float-right">Add Review
+                </button>
+            </h3>
+            <!-- Product review form -->
+            <div class="modal fade" id="productReview" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add review</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" id="addForm" action="{% url 'save_review' data.id %}">
+                                {% csrf_token %}
+                                <table class="table table-unbordered">
+                                    {{ form.as_table }}
+                                    <tr>
+                                        <td colspan="2">
+                                            <button type="submit" class="btn btn-primary"
+                                                    style=" margin-left: 270px; margin-right: 15px;">Submit
+                                            </button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <p class="ajaxRes"></p>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- end -->
-        </h3>
-        <div class="card">
-            <div class="card-body" style="max-height: 400px; overflow: auto;">
-                <!-- Detail -->
-                <blockquote class="blockquote text-right">
-                    <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat
-                        a ante.</small>
-                    <footer class="blockquote-footer">User
-                        <cite title="Source Title">
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-warning"></i>
-                        </cite>
-                    </footer>
-                </blockquote>
-                <hr/>
+
+            <div class="card">
+                <div class="card-body" style="max-height: 400px; overflow: auto;">
+                    <!-- Detail -->
+                    <blockquote class="blockquote text-right">
+                        <small>{{ review.review_text }}</small>
+                        <footer class="blockquote-footer">{{ review.user.username }}
+                            <cite title="Source Title">
+                                <i class="fa fa-star text-warning"></i>
+                                <i class="fa fa-star text-warning"></i>
+                                <i class="fa fa-star text-warning"></i>
+                                <i class="fa fa-star text-warning"></i>
+                            </cite>
+                        </footer>
+                    </blockquote>
+                    <hr/>
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 
     <!-- related products -->
     <h3 style="margin-left: 315px;">Related products</h3>
@@ -112,7 +117,7 @@
         {% for related_product in related_products %}
             <div class="tsort">
                 <a href="{% url 'product' related_product.id %}">
-                    <img src="{{ related_product.image |slice:'10:' }}">
+                    <img src="{% static 'img/upload/' %}{{ data.image|slice:'7:' }}">
                     <h4 style="color: #330867;">{{ related_product.name }}</h4>
                 </a>
                 <h5 style="color: #330867;"> {{ related_product.price }} KZT</h5>
@@ -120,15 +125,7 @@
         {% endfor %}
     </div>
 
-
-    <script src="{% static 'script/custom.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="{% static 'script/zoomsl.min.js' %}"></script>
-    <script>
-        $(function () {
-            console.log("hello");
-            $("#zoom").imagezoomsl({
-                zoomrange: [1, 1],
-            });
-        });
-    </script>
+    <script src="{% static 'script/custom.js' %}"></script>
 {% endblock %}
