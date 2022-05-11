@@ -18,9 +18,10 @@
             <div class="right">
                 <span>{{ data.brand }}</span>
                 <h1>{{ data.name }}</h1>
-                <div class="price">{{ data.price }}</div>
+                <div class="price">{{ data.price }} KZT</div>
                 <form>
                     <div>
+                    <h4>In stock: {{ data.stock }}</h4>
                         <select id="size_selector">
                             {% if data.size.all|length == 1 %}
                                 <option value="{{ data.size.all|first }}" selected disabled>
