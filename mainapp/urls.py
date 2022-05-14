@@ -20,6 +20,7 @@ urlpatterns = [
     path('search/<str:name>', views.search, name='search'),
     path('aboutUs', views.aboutUs, name='aboutUs'),
     path('changesort/<str:sort>', views.change_sort, name='changesort'),
+    path('add_filter/<str:filter_name>/<str:option>', views.add_filter, name='add_filter'),
     path('newsPage', views.newsPage, name='newsPage'),
     path('newsPage2', views.newsPage2, name='newsPage2'),
     path('newsPage3', views.newsPage3, name='newsPage3'),

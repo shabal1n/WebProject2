@@ -8,9 +8,16 @@ from django.db.models import Q
 from django.core.mail import send_mail, get_connection
 from django.conf import settings
 
+FILTERS = {'subcategory': (), 'brand': (), 'price': 0, 'prev_page': ''}
 
 def main(request):
     return render(request, 'main_page.html')
+
+
+# def get_filtered_items(passed_category_id):
+#     items = Items.objects.select_related().filter(category_id=passed_category_id)
+#     if FILTERS.get('prev_page') ==
+#     return items
 
 
 def men(request):
@@ -212,6 +219,12 @@ def aboutUs(request):
 def change_sort(request, sort):
     Items.order = [sort]
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+# def add_filter(request, filter_name, option):
+# # 1. Filter by subcategory
+# # 2. Filter by brand
+# # 3. Filter by price(lower and higher)
 
 
 def aboutUs(request):
