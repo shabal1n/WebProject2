@@ -2,61 +2,77 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib import messages
-from .models import Items, ProductReview, Basket, BasketItem, Order, DeliveryCompany
+from .models import *
 from .forms import ReviewAdd, ContactForm
 from django.db.models import Q
 from django.core.mail import send_mail, get_connection
 from django.conf import settings
 
-FILTERS = {'subcategory': (), 'brand': (), 'price': 0, 'prev_page': ''}
+FILTERS = {'subcategory': [], 'brand': [], 'price': 0, 'prev_page': ''}
+
 
 def main(request):
     return render(request, 'main_page.html')
 
 
-# def get_filtered_items(passed_category_id):
-#     items = Items.objects.select_related().filter(category_id=passed_category_id)
-#     if FILTERS.get('prev_page') ==
-#     return items
+def get_filtered_items(passed_category_id, request):
+    items = Items.objects.select_related().filter(category_id=passed_category_id)
+    if FILTERS.get('prev_page') != request.path_info:
+        FILTERS['subcategory'] = []
+        FILTERS['brand'] = []
+        FILTERS['price'] = 0
+        FILTERS['prev_page'] = request.path_info
+    if FILTERS['subcategory']:
+        list_of_subcategories = []
+        sub = Subcategory.objects.all()
+        for i in sub:
+            if i.title in FILTERS['subcategory']:
+                list_of_subcategories.append(i)
+        items = items.filter(subcategory__in=list_of_subcategories)
+    if FILTERS['brand']:
+        list_of_brands = []
+        br = Brands.objects.all()
+        for i in br:
+            if i.title in FILTERS['brand']:
+                list_of_brands.append(i)
+        items = items.filter(brand__in=list_of_brands)
+    if int(FILTERS['price']) > 0:
+        items = items.filter(price__lt=FILTERS['price'])
+    return items
 
 
 def men(request):
+    items = get_filtered_items(1, request)
     if Items.order:
-        items = Items.objects.select_related().filter(category_id=1).order_by(*Items.order)
-    else:
-        items = Items.objects.select_related().filter(category_id=1)
+        items = items.order_by(*Items.order)
     return render(request, 'items.html', {'items': items})
 
 
 def women(request):
+    items = get_filtered_items(2, request)
     if Items.order:
-        items = Items.objects.select_related().filter(category_id=2).order_by(*Items.order)
-    else:
-        items = Items.objects.select_related().filter(category_id=2)
+        items = items.order_by(*Items.order)
     return render(request, 'items.html', {'items': items})
 
 
 def kids(request):
+    items = get_filtered_items(3, request)
     if Items.order:
-        items = Items.objects.select_related().filter(category_id=3).order_by(*Items.order)
-    else:
-        items = Items.objects.select_related().filter(category_id=3)
+        items = items.order_by(*Items.order)
     return render(request, 'items.html', {'items': items})
 
 
 def accessories(request):
+    items = get_filtered_items(4, request)
     if Items.order:
-        items = Items.objects.select_related().filter(category_id=4).order_by(*Items.order)
-    else:
-        items = Items.objects.select_related().filter(category_id=4)
+        items = items.order_by(*Items.order)
     return render(request, 'items.html', {'items': items})
 
 
 def sneakers(request):
+    items = get_filtered_items(5, request)
     if Items.order:
-        items = Items.objects.select_related().filter(category_id=5).order_by(*Items.order)
-    else:
-        items = Items.objects.select_related().filter(category_id=5)
+        items = items.order_by(*Items.order)
     return render(request, 'items.html', {'items': items})
 
 
@@ -221,10 +237,19 @@ def change_sort(request, sort):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
-# def add_filter(request, filter_name, option):
-# # 1. Filter by subcategory
-# # 2. Filter by brand
-# # 3. Filter by price(lower and higher)
+def add_filter(request, filter_name, option):
+    if isinstance(FILTERS[filter_name], list):
+        FILTERS[filter_name].append(option)
+    else:
+        FILTERS[filter_name] = option
+    # return redirect(request.META.get('HTTP_REFERER'))
+    print(FILTERS)
+    return redirect(FILTERS['prev_page'][1:])
+
+
+# 1. Filter by subcategory
+# 2. Filter by brand
+# 3. Filter by price(lower and higher)
 
 
 def aboutUs(request):
