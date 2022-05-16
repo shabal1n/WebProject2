@@ -6,18 +6,47 @@
     <link rel="stylesheet" href="{% static 'style/search-filter.css' %}">
     <div>
         <h1 style="text-align: center; margin-top: 50px;">{{ request.path|slice:"1:"|upper }}</h1>
-        <div style="width:200px; margin-left: 10%">
-            <label for="sort"></label><select id="sort"
-                                              onchange="location.href='changesort/' + document.getElementById('sort').value">
+    </div>
+    {% if items %}
+        <div class="kurt">
+        <div style="width:100px; margin: 10%; height: 100%; vertical-align: top">
+            <label for="sort">Sort by:</label><select id="sort" style="margin-bottom: 10%"
+                                                      onchange="location.href='changesort/' + document.getElementById('sort').value">
             <option value="" disabled selected>Sort by</option>
             <option value="name">A->Z</option>
             <option value="-name">Z->A</option>
             <option value="price">Price ascending</option>
             <option value="-price">Price descending</option>
         </select>
+            <label for="filters_select">Filters:</label>
+            <div id="filters_select">
+                <label style="margin-bottom: 10%">
+                    <select id="brand_filter" onchange="location.href='add_filter/brand/' + document.getElementById('brand_filter').value">
+                        <option disabled selected>Brand</option>
+                        {% for brand in brands %}
+                            <option value="{{ brand.title }}">{{ brand.title }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <label style="margin-bottom: 10%">
+                    <select id="category_filter" onchange="location.href='add_filter/subcategory/' + document.getElementById('category_filter').value">
+                        <option disabled selected>Category</option>
+                        {% for subcategory in subcategories %}
+                            <option value="{{ subcategory.title }}">{{ subcategory.title }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <label style="margin-bottom: 10%">
+                    <select id="price_filter" onchange="location.href='add_filter/price/' + document.getElementById('price_filter').value">
+                        <option disabled selected>Price</option>
+                        <option>250000</option>
+                        <option>500000</option>
+                        <option>1000000</option>
+                    </select>
+                </label>
+            </div>
         </div>
-    </div>
-    <div class="kurt">
+
         {% for item in items %}
             <div class="tsort">
                 <a href="{% url 'product' item.id %}">
@@ -28,5 +57,8 @@
                 <h5 style="color: #330867;"> {{ item.price }} KZT</h5>
             </div>
         {% endfor %}
-    </div>
+    {% else %}
+        <h3 style="text-align: center; margin-block: 50px">No items found!</h3>
+    {% endif %}
+</div>
 {% endblock %}

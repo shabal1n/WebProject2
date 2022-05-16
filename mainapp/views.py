@@ -43,37 +43,47 @@ def get_filtered_items(passed_category_id, request):
 
 def men(request):
     items = get_filtered_items(1, request)
+    brands = Brands.objects.all()
+    subcategories = Subcategory.objects.all()
     if Items.order:
         items = items.order_by(*Items.order)
-    return render(request, 'items.html', {'items': items})
+    return render(request, 'items.html', {'items': items, 'brands': brands, 'subcategories': subcategories})
 
 
 def women(request):
     items = get_filtered_items(2, request)
+    brands = Brands.objects.all()
+    subcategories = Subcategory.objects.all()
     if Items.order:
         items = items.order_by(*Items.order)
-    return render(request, 'items.html', {'items': items})
+    return render(request, 'items.html', {'items': items, 'brands': brands, 'subcategories': subcategories})
 
 
 def kids(request):
     items = get_filtered_items(3, request)
+    brands = Brands.objects.all()
+    subcategories = Subcategory.objects.all()
     if Items.order:
         items = items.order_by(*Items.order)
-    return render(request, 'items.html', {'items': items})
+    return render(request, 'items.html', {'items': items, 'brands': brands, 'subcategories': subcategories})
 
 
 def accessories(request):
     items = get_filtered_items(4, request)
+    brands = Brands.objects.all()
+    subcategories = Subcategory.objects.all()
     if Items.order:
         items = items.order_by(*Items.order)
-    return render(request, 'items.html', {'items': items})
+    return render(request, 'items.html', {'items': items, 'brands': brands, 'subcategories': subcategories})
 
 
 def sneakers(request):
     items = get_filtered_items(5, request)
+    brands = Brands.objects.all()
+    subcategories = Subcategory.objects.all()
     if Items.order:
         items = items.order_by(*Items.order)
-    return render(request, 'items.html', {'items': items})
+    return render(request, 'items.html', {'items': items, 'brands': brands, 'subcategories': subcategories})
 
 
 def product(request, id):
@@ -242,14 +252,7 @@ def add_filter(request, filter_name, option):
         FILTERS[filter_name].append(option)
     else:
         FILTERS[filter_name] = option
-    # return redirect(request.META.get('HTTP_REFERER'))
-    print(FILTERS)
     return redirect(FILTERS['prev_page'][1:])
-
-
-# 1. Filter by subcategory
-# 2. Filter by brand
-# 3. Filter by price(lower and higher)
 
 
 def aboutUs(request):
