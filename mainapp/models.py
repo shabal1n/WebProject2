@@ -64,7 +64,8 @@ class Items(models.Model):
     name = models.TextField(default='')
     brand = models.ForeignKey(Brands, blank=True, null=True, on_delete=models.CASCADE, verbose_name='BRAND')
     category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE, verbose_name='CATEGORY')
-    subcategory = models.ForeignKey(Subcategory, blank=True, null=True, on_delete=models.CASCADE, verbose_name='SUBCATEGORY')
+    subcategory = models.ForeignKey(Subcategory, blank=True, null=True, on_delete=models.CASCADE,
+                                    verbose_name='SUBCATEGORY')
     price = models.IntegerField(blank=True, null=True, verbose_name='PRICE')
     image = models.ImageField(null=True, blank=True)
     size = models.ManyToManyField(Sizes)
@@ -90,6 +91,9 @@ class Basket(models.Model):
             s = s + basket_item.item.price * basket_item.count
 
         return s
+
+    def get_id(self):
+        return self.user.id
 
     def __str__(self):
         return f"Cart of {self.user.username}, total: {self.total()} KZT"

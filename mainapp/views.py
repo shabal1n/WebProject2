@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.core.mail import send_mail, get_connection
 from django.conf import settings
 
-FILTERS = {'subcategory': [], 'brand': [], 'price': 0, 'prev_page': ''}
+FILTERS = {'subcategory': '', 'brand': '', 'price': 0, 'prev_page': ''}
 
 
 def main(request):
@@ -18,8 +18,8 @@ def main(request):
 def get_filtered_items(passed_category_id, request):
     items = Items.objects.select_related().filter(category_id=passed_category_id)
     if FILTERS.get('prev_page') != request.path_info:
-        FILTERS['subcategory'] = []
-        FILTERS['brand'] = []
+        FILTERS['subcategory'] = ''
+        FILTERS['brand'] = ''
         FILTERS['price'] = 0
         FILTERS['prev_page'] = request.path_info
     if FILTERS['subcategory']:
@@ -90,9 +90,9 @@ def product(request, id):
     if request.method == 'POST':
         user = request.user
         item = Items.objects.get(id=id)
-        basket_global = Basket.objects.get(user=user.id)
 
-        if Basket.objects.filter(id=user.id):
+        if Basket.objects.filter(user=user):
+            basket_global = Basket.objects.get(user=user.id)
             list_items = []
 
             for i in BasketItem.objects.all():
@@ -248,10 +248,7 @@ def change_sort(request, sort):
 
 
 def add_filter(request, filter_name, option):
-    if isinstance(FILTERS[filter_name], list):
-        FILTERS[filter_name].append(option)
-    else:
-        FILTERS[filter_name] = option
+    FILTERS[filter_name] = option
     return redirect(FILTERS['prev_page'][1:])
 
 
