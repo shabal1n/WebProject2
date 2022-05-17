@@ -291,3 +291,11 @@ def contact(request):
         if 'submitted' in request.GET:
             submitted = True
     return render(request, 'contactUs.html', {'form': form, 'item': Items.objects.all(), 'submitted': submitted})
+
+
+def user_profile(request):
+    return render(request, 'user_profile.html')
+
+
+def payment(request):
+    return render(request, 'payment.html')

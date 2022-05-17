@@ -1,0 +1,127 @@
+{% extends 'template.html' %}
+{% load static %}
+
+  {% block title %}User Profile{% endblock title %}
+ {% block content %}
+<link rel="stylesheet" href="{% static './style/user_profile.css' %}">
+
+    <div class="container" style="margin-top: 50px">
+        <div class="row">
+            <div class="col-4">
+                <div class="card text-white mb-3" style="max-width: 300px; height: 400px; background-color: black">
+                    <div class="side__menu-header container" style="margin-top: 20px">
+						<span>My Account</span>
+						<div class="userName"><h4>Baiken Kizatollin</h4></div>
+					</div>
+                    <br>
+                    <div class="container">
+                        <ul class="list-group list-group-flush" >
+                            <li class="list-group"><a href="/" style="text-decoration: none; color: white; height: 50px;"><h5>Profile</h5></a></li>
+                            <li class="list-group"><a href="/" style="text-decoration: none; color: white; height: 50px">Addresses</a></li>
+                            <li class="list-group"><a href="/" style="text-decoration: none; color: white; height: 50px">Orders</a></li>
+                            <button type="button" class="btn btn-outline-dark" style="color: white; margin-top: 40px; height: 70px; border-color: white">LOGOUT</button>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-8">
+                <div class="header-title">
+                    <h1>Profil</h1>
+                </div>
+                <div>
+                    <label class="custom-radio">
+                      <input type="radio" name="color" value="indigo" >
+                      <h5>Mr</h5>
+                    </label>
+                    <label class="custom-radio" style="margin-left: 20px">
+                      <input type="radio" name="color" value="indigo">
+                      <h5>Mrs</h5>
+                    </label>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <h5 style="margin-right: 70px">Name</h5>
+                  </div>
+                  <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <h5 style="margin-right: 45px">Surname</h5>
+                  </div>
+                  <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <h5 style="margin-right: 75px">Email</h5>
+                  </div>
+                  <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <h5 style="margin-right: 40px">Password</h5>
+                  </div>
+                  <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <h5 style="margin-right: 60px">Repeat</h5>
+                  </div>
+                  <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                </div>
+                <button type="button" class="btn btn-outline-dark" style="margin-left: 630px; width: 100px;">SAVE</button>
+            </div>
+        </div>
+    </div>
+  {% if submitted %}
+    <p class="success">
+     Your message was submitted successfully. Thank you.
+   </p>
+
+ {% else %}
+   <form action="" method="post" novalidate>
+   <table>
+     {{ form.as_table }}
+     <tr>
+       <td>&nbsp;</td>
+       <td><input type="submit" value="Submit"></td>
+     </tr>
+   </table>
+  {% csrf_token %}
+   </form>
+ {% endif %}
+
+ <style>
+    .errorlist li {
+        border: 1px solid red;
+        color: red;
+        background: rgba(255, 0, 0, 0.15);
+        list-style-position: inside;
+        display: block;
+        font-size: 1.2em;
+        margin: 0 0 3px;
+        padding: 4px 5px;
+        text-align: center;
+        border-radius: 3px;
+    }
+     textarea {
+        width: 100%;
+        padding: 5px!important;
+        border-radius: 3px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: rgb(169,169,169)
+    }
+    input {
+        height: 30px;
+    }
+    .success {
+        background-color: rgba(0, 128, 0, 0.15);
+        padding: 10px;
+        text-align: center;
+        color: green;
+        border: 1px solid green;
+        border-radius: 3px;
+    }
+ </style>
+ {% endblock content %}

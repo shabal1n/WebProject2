@@ -24,5 +24,7 @@ urlpatterns = [
     path('newsPage', views.newsPage, name='newsPage'),
     path('newsPage2', views.newsPage2, name='newsPage2'),
     path('newsPage3', views.newsPage3, name='newsPage3'),
-    path('contact/', views.contact, name='contactUs')
+    path('contact/', views.contact, name='contactUs'),
+    path('user_profile', views.user_profile, name='profile'),
+    path('payment', views.payment, name='payment'),
 ]
