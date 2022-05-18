@@ -148,20 +148,29 @@ def registration(request):
         email = request.POST['email']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
-        if password1 == password2:
-            if User.objects.filter(email=email).exists():
-                messages.info(request, 'E-mail is already in use')
-                return redirect('registration')
-            elif User.objects.filter(username=username).exists():
-                messages.info(request, 'Username is already taken')
-                return redirect('registration')
-            else:
-                user = User.objects.create_user(username=username, email=email, password=password1)
-                user.save()
-                return redirect('login')
-        else:
-            messages.info(request, 'Passwords do not match')
+        checkbox = request.POST.get('item_check', False)
+        if not username or not email or not password1 or not password2:
+            messages.info(request, 'Please, fll in all the fields')
             return redirect('registration')
+        else:
+            if checkbox:
+                if password1 == password2:
+                    if User.objects.filter(email=email).exists():
+                        messages.info(request, 'E-mail is already in use')
+                        return redirect('registration')
+                    elif User.objects.filter(username=username).exists():
+                        messages.info(request, 'Username is already taken')
+                        return redirect('registration')
+                    else:
+                        user = User.objects.create_user(username=username, email=email, password=password1)
+                        user.save()
+                        return redirect('login')
+                else:
+                    messages.info(request, 'Passwords do not match')
+                    return redirect('registration')
+            else:
+                messages.info(request, 'Please, accept our terms')
+                return redirect('registration')
     else:
         return render(request, 'registration.html')
 
@@ -173,7 +182,7 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            return redirect('/')
+            return render(request, 'main_page.html')
         else:
             messages.info(request, 'Credentials invalid')
             return redirect('login')

@@ -163,3 +163,8 @@ class ProductReview(models.Model):
 
     def get_review_rating(self):
         return self.review_rating
+
+
+class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+

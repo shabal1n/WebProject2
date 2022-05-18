@@ -50,21 +50,29 @@
                     </style>
                     <h6 style="font-family: Futura, 'Trebuchet MS', Arial, sans-serif;">
                         Welcome, {{ user.username }}!</h6>
+                    <div style="display: flex; flex-direction: row">
+                        <button class="btn btn-outline-light button_main" title="Profile"
+                                onclick="location.href='http://127.0.0.1:8000/user_profile';">
+                            <i class="fas fa-user" title="Profile"></i>
+                        </button>
 
-                    <button class="btn btn-outline-light button_main" title="Log out"
-                            onclick="location.href='http://127.0.0.1:8000/logout';">
-                        <i class="fas fa-sign-out-alt" title="Log out"></i>
-                    </button> {% else %}
+                        <button class="btn btn-outline-light button_main" title="Cart"
+                                onclick="location.href='http://127.0.0.1:8000/cart';">
+                            <i class="fas fa-shopping-basket" title="Cart"></i>
+                        </button>
+
+                        <button class="btn btn-outline-light button_main" title="Log out"
+                                onclick="location.href='http://127.0.0.1:8000/logout';">
+                            <i class="fas fa-sign-out-alt" title="Log out"></i>
+                        </button>
+                    </div>
+                {% else %}
 
                     <button class="btn btn-outline-light button_main" title="Log in"
                             onclick="location.href='http://127.0.0.1:8000/login';">
                         <i class="fas fa-sign-in-alt" title="Log in"></i>
-                    </button> {% endif %}
-
-                <button class="btn btn-outline-light button_main" title="Cart"
-                        onclick="location.href='http://127.0.0.1:8000/cart';">
-                    <i class="fas fa-shopping-basket" title="Cart"></i>
-                </button>
+                    </button>
+                {% endif %}
             </div>
         </div>
 
