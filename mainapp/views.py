@@ -303,7 +303,30 @@ def contact(request):
 
 
 def user_profile(request):
-    return render(request, 'user_profile.html')
+    curr_user = request.user
+    if not Customer.objects.filter(user_id=curr_user.id).exists():
+        Customer.objects.create(user=request.user).save()
+    user = Customer.objects.get(user_id=curr_user.id)
+    return render(request, 'user_profile.html', {'user': user})
+
+
+def address(request):
+    curr_user = request.user
+    if not Customer.objects.filter(user_id=curr_user.id).exists():
+        Customer.objects.create(user=request.user).save()
+    user = Customer.objects.get(user_id=curr_user.id)
+
+    if request.method == 'POST':
+        address = request.POST['address']
+        user.address = address
+        user.save()
+    return render(request, 'address.html', {'user': user})
+
+
+def orders(request):
+    user = request.user
+    orders_of_user = Order.objects.filter(user_id=user.id)
+    return render(request, 'orders.html', {'orders': orders_of_user, 'user': user})
 
 
 def payment(request):

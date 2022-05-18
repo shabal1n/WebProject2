@@ -1,3 +1,5 @@
+import os
+
 from django.contrib.auth.models import User
 
 from django.contrib.auth.models import User
@@ -165,6 +167,16 @@ class ProductReview(models.Model):
         return self.review_rating
 
 
+def get_image_path(instance):
+    return os.path.join('profile', str(instance.id))
+
+
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=155, verbose_name='Name', default='')
+    surname = models.CharField(max_length=155, verbose_name='Surname', default='')
+    address = models.CharField(max_length=155, verbose_name='Address', default='')
+    photo = models.ImageField(upload_to=get_image_path, blank=True, null=True)
 
+    def __str__(self):
+        return self.user.username
