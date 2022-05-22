@@ -6,7 +6,6 @@ $(document).ready(function () {
     });
     // Product Review Save
     $("#addForm").submit(function () {
-        print("Clicked")
         $.ajax({
             data: $(this).serialize(),
             method: $(this).attr('method'),

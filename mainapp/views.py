@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User, auth
-from django.http import JsonResponse, HttpResponseRedirect
+from django.contrib.auth.models import auth
+from django.http import HttpResponseRedirect
 from django.contrib import messages
 from .models import *
-from .forms import ReviewAdd, ContactForm
+from .forms import ReviewAdd, ContactForm, Profile, CardValidation
 from django.db.models import Q
-from django.core.mail import send_mail, get_connection
+from django.core.mail import send_mail
 from django.conf import settings
+from django.db import transaction
 
 FILTERS = {'subcategory': '', 'brand': '', 'price': 0, 'prev_page': ''}
 
@@ -199,14 +200,16 @@ def logout(request):
 def save_review(request, id):
     product = Items.objects.get(pk=id)
     user = request.user
-    review = ProductReview.objects.create(
-        user=user,
-        product=product,
-        review_text=request.POST['review_text'],
-        review_rating=request.POST['review_rating'],
-    )
-    review.save()
-    return JsonResponse({'bool': True})
+    review_form = ReviewAdd(request.POST)
+    if review_form.is_valid() and not user.is_anonymous:
+        review = ProductReview.objects.create(
+            user=user,
+            product=product,
+            review_text=request.POST['review_text'],
+            review_rating=request.POST['review_rating'],
+        )
+        review.save()
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 def change_count(request, item_id, count):
@@ -224,14 +227,13 @@ def make_order(request):
         delivery = request.POST['delivery']
         city = request.POST['city']
         address = request.POST['address']
-        curr_order = Order.objects.get(user=request.user, basket=cart_current)
-        curr_order.city = city
-        curr_order.address = address
-        curr_order.delivery = DeliveryCompany.objects.get(title=delivery)
-        curr_order.save()
-        for b_item in BasketItem.objects.filter(cart=Basket.objects.get(user=request.user)).all():
-            b_item.delete()
-        return redirect('cart')
+        with transaction.atomic():
+            curr_order = Order.objects.get(user=request.user, basket=cart_current)
+            curr_order.city = city
+            curr_order.address = address
+            curr_order.delivery = DeliveryCompany.objects.get(title=delivery)
+            curr_order.save()
+        return redirect('payment/' + str(curr_order.id))
     else:
         if not Order.objects.filter(user=request.user, basket=cart_current).exists():
             order_this = Order.objects.create(user=request.user, basket=cart_current)
@@ -239,7 +241,12 @@ def make_order(request):
         items = BasketItem.objects.filter(cart=cart_current).all()
         total = cart_current.total()
         deliveries = DeliveryCompany.objects.all()
-        return render(request, 'order.html', {'items': items, 'total': total, 'deliveries': deliveries})
+        curr_cust = Customer.objects.all()
+        if not Customer.objects.filter(user=request.user).exists():
+            curr_cust = Customer.objects.create(user=request.user, name='', surname='', address='', photo='beach.jpg')
+            curr_cust.save()
+        return render(request, 'order.html',
+                      {'items': items, 'total': total, 'deliveries': deliveries, 'user': curr_cust})
 
 
 def search(request, name):
@@ -283,31 +290,31 @@ def contact(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            # assert False
-            con = get_connection('django.core.mail.backends.console.EmailBackend')
-            send_mail(
-                cd['subject'],
-                cd['message'],
-                settings.EMAIL_HOST_USER,
-                ['lil-aisana@mail.ru'],
-                cd.get('email', 'noreply@example.com'),
-                ['lil-aisana@mail.ru'],
-                connection=con
-            )
-            return HttpResponseRedirect('/contact?submitted=True')
+            subject = cd['subject']
+            message = cd['message']
+
+            send_mail(subject, message, settings.EMAIL_HOST_USER, ['artur.shab@yandex.ru'])
+        return HttpResponseRedirect('/contact?submitted=True')
     else:
         form = ContactForm()
         if 'submitted' in request.GET:
             submitted = True
-    return render(request, 'contactUs.html', {'form': form, 'item': Items.objects.all(), 'submitted': submitted})
+        return render(request, 'contactUs.html', {'form': form, 'item': Items.objects.all(), 'submitted': submitted})
 
 
 def user_profile(request):
-    curr_user = request.user
-    if not Customer.objects.filter(user_id=curr_user.id).exists():
-        Customer.objects.create(user=request.user).save()
-    user = Customer.objects.get(user_id=curr_user.id)
-    return render(request, 'user_profile.html', {'user': user})
+    if not Customer.objects.filter(user=request.user).exists():
+        Customer.objects.create(user=request.user, name='', surname='', address='', photo='beach.jpg').save()
+    customer = request.user.customer
+    form = Profile(instance=customer)
+
+    if request.method == 'POST':
+        form = Profile(request.POST, request.FILES, instance=customer)
+        if form.is_valid():
+            form.save()
+
+    context = {'form': form}
+    return render(request, 'user_profile.html', context)
 
 
 def address(request):
@@ -329,5 +336,21 @@ def orders(request):
     return render(request, 'orders.html', {'orders': orders_of_user, 'user': user})
 
 
-def payment(request):
-    return render(request, 'payment.html')
+def payment(request, ord_id):
+    order = Order.objects.get(id=ord_id)
+    curr_user = request.user
+    customer = Customer.objects.get(user_id=curr_user.id)
+    total = int(order.basket.total())
+
+    if request.method == 'POST':
+        order.paid = True
+        order.save()
+        for b_item in BasketItem.objects.filter(cart=Basket.objects.get(user=request.user)).all():
+            b_item.delete()
+        return redirect('orders')
+    else:
+        if order.user == curr_user:
+            form = CardValidation()
+            return render(request, 'payment.html', {'order_html': order, 'customer_html': customer, 'total': total, 'form': form})
+        else:
+            return redirect('cart')

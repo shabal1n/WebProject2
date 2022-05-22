@@ -54,3 +54,4 @@ admin.site.register(DeliveryCompany)
 admin.site.register(ProductReview, ProductReviewAdmin)
 
 admin.site.register(Subcategory, SubcategoryAdmin)
+admin.site.register(Customer)

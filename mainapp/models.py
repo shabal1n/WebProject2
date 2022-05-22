@@ -128,9 +128,6 @@ class Order(models.Model):
     def __str__(self):
         return 'Order {}'.format(self.id)
 
-    def get_total_cost(self):
-        return sum(item.get_cost() for item in self.items.all())
-
 
 class DeliveryCompany(models.Model):
     title = models.CharField(max_length=155, verbose_name='Company Name', default='3')
@@ -167,16 +164,14 @@ class ProductReview(models.Model):
         return self.review_rating
 
 
-def get_image_path(instance):
-    return os.path.join('profile', str(instance.id))
-
-
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=155, verbose_name='Name', default='')
     surname = models.CharField(max_length=155, verbose_name='Surname', default='')
     address = models.CharField(max_length=155, verbose_name='Address', default='')
-    photo = models.ImageField(upload_to=get_image_path, blank=True, null=True)
+    photo = models.ImageField(blank=True, null=True, default='beach.jpg')
 
     def __str__(self):
         return self.user.username
+
+

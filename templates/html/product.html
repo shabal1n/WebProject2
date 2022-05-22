@@ -118,7 +118,7 @@
         {% for related_product in related_products %}
             <div class="tsort">
                 <a href="{% url 'product' related_product.id %}">
-                    <img src="{% static 'img/upload/' %}{{ data.image|slice:'7:' }}">
+                    <img src="{% static 'img/upload/' %}{{ related_product.image|slice:'7:' }}">
                     <h4 style="color: #330867;">{{ related_product.name }}</h4>
                 </a>
                 <h5 style="color: #330867;"> {{ related_product.price }} KZT</h5>

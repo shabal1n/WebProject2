@@ -28,5 +28,5 @@ urlpatterns = [
     path('user_profile', views.user_profile, name='profile'),
     path('address', views.address, name='address'),
     path('orders', views.orders, name='orders'),
-    path('payment', views.payment, name='payment'),
+    path('payment/<int:ord_id>', views.payment, name='payment'),
 ]

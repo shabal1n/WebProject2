@@ -11,19 +11,20 @@
                 <div class="card text-white mb-3" style="max-width: 300px; height: 400px; background-color: black">
                     <div class="side__menu-header container" style="margin-top: 20px">
                         <span>My Account</span>
-                        <div class="userName"><h4>{{ user.user.username }}</h4></div>
+                        <div class="userName"><h4>{{ user.username }}</h4></div>
                     </div>
                     <br>
                     <div class="container">
                         <ul class="list-group list-group-flush">
                             <li class="list-group"><a href="user_profile"
-                                                      style="text-decoration: none; color: white; height: 50px;"><h5>
-                                Profile</h5></a></li>
+                                                      style="text-decoration: none; color: white; height: 50px;">
+                                Profile</a></li>
                             <li class="list-group"><a href="address"
                                                       style="text-decoration: none; color: white; height: 50px">Addresses</a>
                             </li>
                             <li class="list-group"><a href="orders"
-                                                      style="text-decoration: none; color: white; height: 50px">Orders</a>
+                                                      style="text-decoration: none; color: white; height: 50px"><h5>
+                                Orders</h5></a>
                             </li>
                             <button type="button" class="btn btn-outline-dark"
                                     style="color: white; margin-top: 40px; height: 70px; border-color: white"
@@ -36,25 +37,17 @@
             </div>
             <div class="col-8">
                 <div class="header-title">
-                    <h1>Profile</h1>
+                    <h1>Orders</h1>
                 </div>
-                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden; margin: 5%">
-                    {% if request.user.customer.photo.url %}
-                        <img style="width: 100%" src="{% static '' %}{{ request.user.customer.photo.url|slice:'1:' }}"/>
-                    {% else %}
-                        <img style="width: 100%" src="https://i.natgeofe.com/n/f0dccaca-174b-48a5-b944-9bcddf913645/01-cat-questions-nationalgeographic_1228126.jpg"/>
-                    {% endif %}
-                </div>
-
-                <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div>
-                        {{ form.as_ul }}
-                        <button type="submit" class="btn btn-outline-dark" style="margin-left: 630px; width: 100px;">
-                            SAVE
-                        </button>
+                {% for order in orders %}
+                    <div class="input-group mb-3" style="border: 3px solid black">
+                        <h5>Shipping to: {{ order.address }}, {{ order.city }}, </h5>
+                        <br>
+                        <h5>&nbsp;{{ order.created }}</h5>
+                        <br>
+                        <h5>Delivery company: {{ order.delivery }} &nbsp; &nbsp; Paid: {{ order.paid }}</h5>
                     </div>
-                </form>
+                {% endfor %}
             </div>
         </div>
     </div>
