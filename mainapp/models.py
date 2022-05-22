@@ -10,8 +10,8 @@ CATEGORIES = (
     ("Men", "Men"),
     ("Women", "Women"),
     ("Kids", "Kids"),
-    ("Shoes", "Shoes"),
-    ("Kids", "Kids")
+    ("Sneakers", "Sneakers"),
+    ("Accessories", "Accessories")
 )
 
 
