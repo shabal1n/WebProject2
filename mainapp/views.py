@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import auth
 from django.http import HttpResponseRedirect
@@ -228,14 +230,14 @@ def make_order(request):
         city = request.POST['city']
         address = request.POST['address']
         with transaction.atomic():
-            curr_order = Order.objects.get(user=request.user, basket=cart_current)
+            curr_order = Order.objects.filter(user=request.user, basket=cart_current).last()
             curr_order.city = city
             curr_order.address = address
             curr_order.delivery = DeliveryCompany.objects.get(title=delivery)
             curr_order.save()
         return redirect('payment/' + str(curr_order.id))
     else:
-        if not Order.objects.filter(user=request.user, basket=cart_current).exists():
+        if not Order.objects.filter(user=request.user, basket=cart_current, created_at=datetime.datetime.now()).exists():
             order_this = Order.objects.create(user=request.user, basket=cart_current)
             order_this.save()
         items = BasketItem.objects.filter(cart=cart_current).all()

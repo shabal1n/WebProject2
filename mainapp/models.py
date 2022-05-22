@@ -1,3 +1,4 @@
+import datetime
 import os
 
 from django.contrib.auth.models import User
@@ -119,6 +120,7 @@ class Order(models.Model):
     delivery = models.ForeignKey('DeliveryCompany', on_delete=models.SET_NULL, blank=True, null=True)
     paid = models.BooleanField(default=False)
     basket = models.ForeignKey(Basket, on_delete=models.DO_NOTHING, default='')
+    created_at = models.DateTimeField(default=datetime.datetime.now())
 
     class Meta:
         ordering = ('-created',)

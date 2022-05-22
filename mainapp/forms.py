@@ -63,6 +63,5 @@ class CardValidation(forms.Form):
         cc_expiry = self.cleaned_data.get('cc_expiry')
 
         if cc_expiry < datetime.date.today():
-            print('ERROR')
             self._errors['cc_expiry'] = self.error_class(['Your card has expired'])
-
+        return self.cleaned_data
